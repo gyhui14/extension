@@ -32,7 +32,7 @@ from models.resnet_block_format import *
 from dog_data.load import load_datasets
 
 parser = argparse.ArgumentParser(description='PyTorch Residual Adapters training')
-parser.add_argument('--nb_epochs', default=120, type=int, help='nb epochs')
+parser.add_argument('--nb_epochs', default=180, type=int, help='nb epochs')
 
 parser.add_argument('--wd3x3', default=1.0, type=float, nargs='+', help='weight decay for the 3x3')
 parser.add_argument('--wd1x1', default=1.0, type=float, nargs='+', help='weight decay for the 1x1')
@@ -51,9 +51,9 @@ parser.add_argument('--cv_dir', default='./trained_from_scratch/', help='checkpo
 #parser.add_argument('--cv_dir', default='./test/', help='checkpoint directory (models and logs are saved here)')
 
 parser.add_argument('--seed', default=0, type=int, help='seed')
-parser.add_argument('--step1', default=30, type=int, help='nb epochs before first lr decrease')
-parser.add_argument('--step2', default=60, type=int, help='nb epochs before second lr decrease')
-parser.add_argument('--step3', default=90, type=int, help='nb epochs before third lr decrease')
+parser.add_argument('--step1', default=60, type=int, help='nb epochs before first lr decrease')
+parser.add_argument('--step2', default=100, type=int, help='nb epochs before second lr decrease')
+parser.add_argument('--step3', default=130, type=int, help='nb epochs before third lr decrease')
 args = parser.parse_args()
 
 weight_decays = [
