@@ -1,0 +1,1 @@
+{"imdbdir": "../data/decathlon-1.0/annotations/", "lr_agent": 0.1, "lambd": 2, "batch_size": 64, "step3": 90, "datadir": "../data/decathlon-1.0/", "seed": 0, "lr": 0.01, "wd3x3": 1.0, "step1": 30, "factor": 1.0, "cv_dir": "./trained_from_scratch/", "nb_epochs": 110, "wd1x1": 1.0, "step2": 60}

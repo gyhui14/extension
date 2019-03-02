@@ -1,0 +1,8 @@
+.DS*
+data/*
+cv/*
+*.t7
+dog_data/*
+test/*
+caltech_datasets/*
+*.npy

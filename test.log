@@ -1,0 +1,786 @@
+/home/yunhui/anaconda2/lib/python2.7/site-packages/torchvision/transforms/transforms.py:188: UserWarning: The use of the transforms.Scale transform is deprecated, please use transforms.Resize instead.
+  "please use transforms.Resize instead.")
+/home/yunhui/anaconda2/lib/python2.7/site-packages/torchvision/transforms/transforms.py:563: UserWarning: The use of the transforms.RandomSizedCrop transform is deprecated, please use transforms.RandomResizedCrop instead.
+  "please use transforms.RandomResizedCrop instead.")
+/home/yunhui/anaconda2/lib/python2.7/site-packages/torch/serialization.py:425: SourceChangeWarning: source code of class 'models.resnet_block_format.ResNet' has changed. you can retrieve the original source code by accessing the object's source attribute or set `torch.nn.Module.dump_patches = True` and use the patch tool to revert the changes.
+  warnings.warn(msg, SourceChangeWarning)
+/home/yunhui/anaconda2/lib/python2.7/site-packages/torch/serialization.py:425: SourceChangeWarning: source code of class 'models.resnet_block_format.Bottleneck' has changed. you can retrieve the original source code by accessing the object's source attribute or set `torch.nn.Module.dump_patches = True` and use the patch tool to revert the changes.
+  warnings.warn(msg, SourceChangeWarning)
+flowers
+2040
+/home/yunhui/anaconda2/lib/python2.7/site-packages/torch/nn/parallel/_functions.py:58: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+main.py:141: UserWarning: invalid index of a 0-dim tensor. This will be an error in PyTorch 0.5. Use tensor.item() to convert a 0-dim tensor to a Python number
+  losses.update(loss.data[0], labels.size(0))
+Epoch [0/110]	Batch [0/32]	Loss 4.7264 (4.7264)	Prec@1 0.0000 (0.0000)
+Epoch [0/110]	Batch [10/32]	Loss 4.9648 (5.0059)	Prec@1 0.0000 (0.8523)
+Epoch [0/110]	Batch [20/32]	Loss 5.4759 (5.2214)	Prec@1 0.0000 (0.9673)
+Epoch [0/110]	Batch [30/32]	Loss 5.7786 (5.2623)	Prec@1 0.0000 (0.9073)
+Training Time 264.506822109
+main.py:263: UserWarning: invalid index of a 0-dim tensor. This will be an error in PyTorch 0.5. Use tensor.item() to convert a 0-dim tensor to a Python number
+  losses.update(loss.data[0], labels.size(0))
+test accuracy
+Epoch [0/110]	Loss 118.0960 (95.0492)	Prec@1 0.0000 (0.8131)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [1/110]	Batch [0/32]	Loss 5.9221 (5.9221)	Prec@1 3.1250 (3.1250)
+Epoch [1/110]	Batch [10/32]	Loss 6.0075 (6.0016)	Prec@1 1.5625 (1.8466)
+Epoch [1/110]	Batch [20/32]	Loss 5.0374 (5.5652)	Prec@1 0.0000 (2.1577)
+Epoch [1/110]	Batch [30/32]	Loss 4.6686 (5.3639)	Prec@1 1.5625 (2.0665)
+Training Time 246.962610006
+test accuracy
+Epoch [1/110]	Loss 4.0795 (5.4088)	Prec@1 0.0000 (3.2688)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [2/110]	Batch [0/32]	Loss 4.7619 (4.7619)	Prec@1 1.5625 (1.5625)
+Epoch [2/110]	Batch [10/32]	Loss 4.5679 (4.7061)	Prec@1 4.6875 (2.2727)
+Epoch [2/110]	Batch [20/32]	Loss 4.7178 (4.6209)	Prec@1 0.0000 (2.9018)
+Epoch [2/110]	Batch [30/32]	Loss 4.2450 (4.5325)	Prec@1 3.1250 (3.0746)
+Training Time 242.885618925
+test accuracy
+Epoch [2/110]	Loss 2.7492 (4.4334)	Prec@1 0.0000 (4.1308)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [3/110]	Batch [0/32]	Loss 4.3374 (4.3374)	Prec@1 4.6875 (4.6875)
+Epoch [3/110]	Batch [10/32]	Loss 3.9138 (4.2144)	Prec@1 9.3750 (4.8295)
+Epoch [3/110]	Batch [20/32]	Loss 4.2467 (4.1971)	Prec@1 6.2500 (5.0595)
+Epoch [3/110]	Batch [30/32]	Loss 4.0445 (4.1866)	Prec@1 4.6875 (5.2419)
+Training Time 243.816510201
+test accuracy
+Epoch [3/110]	Loss 3.1868 (5.9062)	Prec@1 0.0000 (5.3342)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [4/110]	Batch [0/32]	Loss 4.0198 (4.0198)	Prec@1 4.6875 (4.6875)
+Epoch [4/110]	Batch [10/32]	Loss 4.0653 (4.0087)	Prec@1 6.2500 (6.1080)
+Epoch [4/110]	Batch [20/32]	Loss 3.9967 (4.0299)	Prec@1 6.2500 (5.9524)
+Epoch [4/110]	Batch [30/32]	Loss 3.7938 (4.0070)	Prec@1 6.2500 (6.6028)
+Training Time 245.163280964
+test accuracy
+Epoch [4/110]	Loss 2.6332 (4.0307)	Prec@1 80.0000 (11.3514)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [5/110]	Batch [0/32]	Loss 4.0996 (4.0996)	Prec@1 10.9375 (10.9375)
+Epoch [5/110]	Batch [10/32]	Loss 3.7152 (3.9504)	Prec@1 10.9375 (10.0852)
+Epoch [5/110]	Batch [20/32]	Loss 3.7134 (3.8505)	Prec@1 12.5000 (10.6399)
+Epoch [5/110]	Batch [30/32]	Loss 3.8747 (3.8696)	Prec@1 4.6875 (9.3246)
+Training Time 245.937481165
+test accuracy
+Epoch [5/110]	Loss 3.4910 (4.1537)	Prec@1 20.0000 (12.7663)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [6/110]	Batch [0/32]	Loss 3.7930 (3.7930)	Prec@1 12.5000 (12.5000)
+Epoch [6/110]	Batch [10/32]	Loss 3.6352 (3.7622)	Prec@1 9.3750 (8.3807)
+Epoch [6/110]	Batch [20/32]	Loss 4.0476 (3.7929)	Prec@1 4.6875 (8.8542)
+Epoch [6/110]	Batch [30/32]	Loss 3.6768 (3.7546)	Prec@1 14.0625 (9.9798)
+Training Time 246.545310974
+test accuracy
+Epoch [6/110]	Loss 4.4578 (3.7968)	Prec@1 0.0000 (13.5144)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [7/110]	Batch [0/32]	Loss 3.4323 (3.4323)	Prec@1 17.1875 (17.1875)
+Epoch [7/110]	Batch [10/32]	Loss 3.5273 (3.6272)	Prec@1 15.6250 (12.0739)
+Epoch [7/110]	Batch [20/32]	Loss 3.6229 (3.6718)	Prec@1 10.9375 (12.0536)
+Epoch [7/110]	Batch [30/32]	Loss 3.7134 (3.6680)	Prec@1 10.9375 (12.1472)
+Training Time 246.569410086
+test accuracy
+Epoch [7/110]	Loss 2.8142 (3.9776)	Prec@1 20.0000 (14.0185)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [8/110]	Batch [0/32]	Loss 3.3496 (3.3496)	Prec@1 20.3125 (20.3125)
+Epoch [8/110]	Batch [10/32]	Loss 3.6835 (3.5400)	Prec@1 7.8125 (12.9261)
+Epoch [8/110]	Batch [20/32]	Loss 3.5015 (3.5259)	Prec@1 10.9375 (13.1696)
+Epoch [8/110]	Batch [30/32]	Loss 3.3783 (3.5575)	Prec@1 15.6250 (13.3065)
+Training Time 248.711199999
+test accuracy
+Epoch [8/110]	Loss 2.8736 (4.0938)	Prec@1 20.0000 (16.4905)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [9/110]	Batch [0/32]	Loss 3.4178 (3.4178)	Prec@1 18.7500 (18.7500)
+Epoch [9/110]	Batch [10/32]	Loss 3.5297 (3.4879)	Prec@1 15.6250 (14.3466)
+Epoch [9/110]	Batch [20/32]	Loss 3.4614 (3.4615)	Prec@1 9.3750 (14.2857)
+Epoch [9/110]	Batch [30/32]	Loss 3.6867 (3.4935)	Prec@1 10.9375 (14.0121)
+Training Time 249.161233187
+test accuracy
+Epoch [9/110]	Loss 3.6502 (3.8734)	Prec@1 0.0000 (14.9293)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [10/110]	Batch [0/32]	Loss 3.2899 (3.2899)	Prec@1 17.1875 (17.1875)
+Epoch [10/110]	Batch [10/32]	Loss 3.7226 (3.4394)	Prec@1 14.0625 (15.6250)
+Epoch [10/110]	Batch [20/32]	Loss 3.2596 (3.4256)	Prec@1 21.8750 (16.2946)
+Epoch [10/110]	Batch [30/32]	Loss 3.3135 (3.4203)	Prec@1 14.0625 (15.8266)
+Training Time 248.493604898
+test accuracy
+Epoch [10/110]	Loss 2.1037 (4.7475)	Prec@1 40.0000 (18.3119)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [11/110]	Batch [0/32]	Loss 3.6098 (3.6098)	Prec@1 14.0625 (14.0625)
+Epoch [11/110]	Batch [10/32]	Loss 2.9566 (3.3589)	Prec@1 28.1250 (16.6193)
+Epoch [11/110]	Batch [20/32]	Loss 3.3638 (3.3364)	Prec@1 15.6250 (17.6339)
+Epoch [11/110]	Batch [30/32]	Loss 3.4267 (3.3475)	Prec@1 15.6250 (16.7339)
+Training Time 248.11590004
+test accuracy
+Epoch [11/110]	Loss 2.8143 (3.4882)	Prec@1 20.0000 (20.1171)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [12/110]	Batch [0/32]	Loss 3.2380 (3.2380)	Prec@1 21.8750 (21.8750)
+Epoch [12/110]	Batch [10/32]	Loss 3.7028 (3.3199)	Prec@1 7.8125 (16.4773)
+Epoch [12/110]	Batch [20/32]	Loss 3.4867 (3.2996)	Prec@1 12.5000 (17.7083)
+Epoch [12/110]	Batch [30/32]	Loss 3.3173 (3.2777)	Prec@1 18.7500 (17.8931)
+Training Time 248.93768096
+test accuracy
+Epoch [12/110]	Loss 2.3315 (3.8742)	Prec@1 40.0000 (21.9873)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [13/110]	Batch [0/32]	Loss 3.3315 (3.3315)	Prec@1 21.8750 (21.8750)
+Epoch [13/110]	Batch [10/32]	Loss 3.2556 (3.1212)	Prec@1 18.7500 (23.5795)
+Epoch [13/110]	Batch [20/32]	Loss 3.2772 (3.1345)	Prec@1 7.8125 (22.2470)
+Epoch [13/110]	Batch [30/32]	Loss 3.6642 (3.1901)	Prec@1 14.0625 (20.8669)
+Training Time 248.250864983
+test accuracy
+Epoch [13/110]	Loss 1.7330 (3.7474)	Prec@1 60.0000 (23.2070)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [14/110]	Batch [0/32]	Loss 2.9188 (2.9188)	Prec@1 18.7500 (18.7500)
+Epoch [14/110]	Batch [10/32]	Loss 2.9462 (3.1105)	Prec@1 28.1250 (22.0170)
+Epoch [14/110]	Batch [20/32]	Loss 3.0767 (3.0982)	Prec@1 28.1250 (22.9911)
+Epoch [14/110]	Batch [30/32]	Loss 2.7703 (3.1181)	Prec@1 26.5625 (22.6815)
+Training Time 253.110083818
+test accuracy
+Epoch [14/110]	Loss 1.0532 (3.8625)	Prec@1 80.0000 (22.7842)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [15/110]	Batch [0/32]	Loss 3.1055 (3.1055)	Prec@1 17.1875 (17.1875)
+Epoch [15/110]	Batch [10/32]	Loss 2.7355 (3.1272)	Prec@1 26.5625 (21.7330)
+Epoch [15/110]	Batch [20/32]	Loss 2.6873 (3.0782)	Prec@1 34.3750 (22.7679)
+Epoch [15/110]	Batch [30/32]	Loss 2.7583 (3.0445)	Prec@1 28.1250 (23.3871)
+Training Time 256.254988909
+test accuracy
+Epoch [15/110]	Loss 2.8352 (3.3147)	Prec@1 40.0000 (23.0607)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [16/110]	Batch [0/32]	Loss 3.0302 (3.0302)	Prec@1 21.8750 (21.8750)
+Epoch [16/110]	Batch [10/32]	Loss 3.1546 (3.0953)	Prec@1 15.6250 (20.7386)
+Epoch [16/110]	Batch [20/32]	Loss 3.3469 (3.0692)	Prec@1 17.1875 (21.4286)
+Epoch [16/110]	Batch [30/32]	Loss 2.8384 (3.0624)	Prec@1 34.3750 (22.4798)
+Training Time 253.440623999
+test accuracy
+Epoch [16/110]	Loss 3.0330 (3.6608)	Prec@1 40.0000 (23.9714)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [17/110]	Batch [0/32]	Loss 2.9406 (2.9406)	Prec@1 25.0000 (25.0000)
+Epoch [17/110]	Batch [10/32]	Loss 3.0886 (3.0016)	Prec@1 20.3125 (25.0000)
+Epoch [17/110]	Batch [20/32]	Loss 3.0225 (3.0310)	Prec@1 18.7500 (23.5119)
+Epoch [17/110]	Batch [30/32]	Loss 3.0745 (3.0371)	Prec@1 23.4375 (23.3367)
+Training Time 257.383682966
+test accuracy
+Epoch [17/110]	Loss 2.0012 (3.2584)	Prec@1 40.0000 (23.6949)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [18/110]	Batch [0/32]	Loss 2.7249 (2.7249)	Prec@1 28.1250 (28.1250)
+Epoch [18/110]	Batch [10/32]	Loss 2.7072 (2.8669)	Prec@1 23.4375 (25.8523)
+Epoch [18/110]	Batch [20/32]	Loss 2.7651 (2.8998)	Prec@1 28.1250 (26.2649)
+Epoch [18/110]	Batch [30/32]	Loss 2.8562 (2.9148)	Prec@1 15.6250 (25.2016)
+Training Time 255.675638914
+test accuracy
+Epoch [18/110]	Loss 4.1028 (3.1011)	Prec@1 0.0000 (26.7361)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [19/110]	Batch [0/32]	Loss 3.2070 (3.2070)	Prec@1 23.4375 (23.4375)
+Epoch [19/110]	Batch [10/32]	Loss 3.0114 (2.9061)	Prec@1 26.5625 (27.4148)
+Epoch [19/110]	Batch [20/32]	Loss 2.6764 (2.8917)	Prec@1 31.2500 (26.3393)
+Epoch [19/110]	Batch [30/32]	Loss 3.0658 (2.8900)	Prec@1 12.5000 (25.9073)
+Training Time 255.251078844
+test accuracy
+Epoch [19/110]	Loss 3.0005 (3.1323)	Prec@1 0.0000 (25.6302)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [20/110]	Batch [0/32]	Loss 2.7778 (2.7778)	Prec@1 34.3750 (34.3750)
+Epoch [20/110]	Batch [10/32]	Loss 2.7604 (2.7194)	Prec@1 29.6875 (28.4091)
+Epoch [20/110]	Batch [20/32]	Loss 3.0287 (2.7618)	Prec@1 15.6250 (26.6369)
+Epoch [20/110]	Batch [30/32]	Loss 3.0427 (2.8073)	Prec@1 29.6875 (27.0665)
+Training Time 256.916174889
+test accuracy
+Epoch [20/110]	Loss 2.6306 (4.9472)	Prec@1 20.0000 (24.5894)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [21/110]	Batch [0/32]	Loss 3.0864 (3.0864)	Prec@1 28.1250 (28.1250)
+Epoch [21/110]	Batch [10/32]	Loss 2.4484 (2.7283)	Prec@1 45.3125 (30.1136)
+Epoch [21/110]	Batch [20/32]	Loss 2.7567 (2.7195)	Prec@1 26.5625 (30.2827)
+Epoch [21/110]	Batch [30/32]	Loss 2.9440 (2.7068)	Prec@1 23.4375 (29.8387)
+Training Time 257.329585075
+test accuracy
+Epoch [21/110]	Loss 1.6542 (3.0586)	Prec@1 40.0000 (29.3869)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [22/110]	Batch [0/32]	Loss 3.0794 (3.0794)	Prec@1 28.1250 (28.1250)
+Epoch [22/110]	Batch [10/32]	Loss 2.7538 (2.7336)	Prec@1 25.0000 (31.3920)
+Epoch [22/110]	Batch [20/32]	Loss 2.8664 (2.8357)	Prec@1 25.0000 (27.0089)
+Epoch [22/110]	Batch [30/32]	Loss 2.9163 (2.8076)	Prec@1 25.0000 (27.3185)
+Training Time 257.643955946
+test accuracy
+Epoch [22/110]	Loss 2.0254 (3.0845)	Prec@1 40.0000 (26.6547)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [23/110]	Batch [0/32]	Loss 2.4908 (2.4908)	Prec@1 39.0625 (39.0625)
+Epoch [23/110]	Batch [10/32]	Loss 2.5458 (2.6047)	Prec@1 29.6875 (32.6705)
+Epoch [23/110]	Batch [20/32]	Loss 2.6095 (2.6901)	Prec@1 31.2500 (31.1756)
+Epoch [23/110]	Batch [30/32]	Loss 2.8747 (2.6985)	Prec@1 28.1250 (30.6452)
+Training Time 259.877007008
+test accuracy
+Epoch [23/110]	Loss 4.2417 (3.7085)	Prec@1 0.0000 (26.9475)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [24/110]	Batch [0/32]	Loss 2.4360 (2.4360)	Prec@1 40.6250 (40.6250)
+Epoch [24/110]	Batch [10/32]	Loss 2.5236 (2.6164)	Prec@1 32.8125 (28.8352)
+Epoch [24/110]	Batch [20/32]	Loss 2.5125 (2.6262)	Prec@1 37.5000 (29.6875)
+Epoch [24/110]	Batch [30/32]	Loss 2.7565 (2.6372)	Prec@1 31.2500 (30.1411)
+Training Time 259.971914053
+test accuracy
+Epoch [24/110]	Loss 1.6449 (3.6055)	Prec@1 60.0000 (27.4841)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [25/110]	Batch [0/32]	Loss 3.0439 (3.0439)	Prec@1 17.1875 (17.1875)
+Epoch [25/110]	Batch [10/32]	Loss 2.7296 (2.4649)	Prec@1 31.2500 (36.6477)
+Epoch [25/110]	Batch [20/32]	Loss 2.7366 (2.5386)	Prec@1 28.1250 (34.5982)
+Epoch [25/110]	Batch [30/32]	Loss 2.6158 (2.5027)	Prec@1 34.3750 (34.6774)
+Training Time 258.196871042
+test accuracy
+Epoch [25/110]	Loss 0.6066 (4.3017)	Prec@1 80.0000 (27.1426)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [26/110]	Batch [0/32]	Loss 2.4844 (2.4844)	Prec@1 39.0625 (39.0625)
+Epoch [26/110]	Batch [10/32]	Loss 2.5020 (2.5334)	Prec@1 29.6875 (33.3807)
+Epoch [26/110]	Batch [20/32]	Loss 2.3137 (2.5082)	Prec@1 39.0625 (34.8958)
+Epoch [26/110]	Batch [30/32]	Loss 2.2816 (2.5411)	Prec@1 39.0625 (33.5181)
+Training Time 258.424319029
+test accuracy
+Epoch [26/110]	Loss 2.0632 (3.1711)	Prec@1 40.0000 (29.4519)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [27/110]	Batch [0/32]	Loss 2.4148 (2.4148)	Prec@1 42.1875 (42.1875)
+Epoch [27/110]	Batch [10/32]	Loss 2.4242 (2.4936)	Prec@1 32.8125 (33.6648)
+Epoch [27/110]	Batch [20/32]	Loss 2.5372 (2.4909)	Prec@1 39.0625 (33.7798)
+Epoch [27/110]	Batch [30/32]	Loss 2.6834 (2.5398)	Prec@1 32.8125 (32.5101)
+Training Time 257.68798995
+test accuracy
+Epoch [27/110]	Loss 2.6100 (3.0550)	Prec@1 40.0000 (32.3305)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [28/110]	Batch [0/32]	Loss 2.3389 (2.3389)	Prec@1 32.8125 (32.8125)
+Epoch [28/110]	Batch [10/32]	Loss 2.5184 (2.4059)	Prec@1 32.8125 (36.3636)
+Epoch [28/110]	Batch [20/32]	Loss 2.0620 (2.4019)	Prec@1 42.1875 (35.7887)
+Epoch [28/110]	Batch [30/32]	Loss 2.3599 (2.4247)	Prec@1 32.8125 (34.8286)
+Training Time 257.588573933
+test accuracy
+Epoch [28/110]	Loss 2.4109 (3.7743)	Prec@1 40.0000 (30.1675)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [29/110]	Batch [0/32]	Loss 2.6308 (2.6308)	Prec@1 43.7500 (43.7500)
+Epoch [29/110]	Batch [10/32]	Loss 2.5696 (2.3558)	Prec@1 34.3750 (38.6364)
+Epoch [29/110]	Batch [20/32]	Loss 2.2987 (2.3618)	Prec@1 39.0625 (37.1280)
+Epoch [29/110]	Batch [30/32]	Loss 2.6572 (2.3757)	Prec@1 29.6875 (37.4496)
+Training Time 256.938927889
+test accuracy
+Epoch [29/110]	Loss 0.8655 (3.2536)	Prec@1 60.0000 (31.7287)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [30/110]	Batch [0/32]	Loss 2.3326 (2.3326)	Prec@1 32.8125 (32.8125)
+Epoch [30/110]	Batch [10/32]	Loss 2.3128 (2.2112)	Prec@1 35.9375 (39.3466)
+Epoch [30/110]	Batch [20/32]	Loss 1.9421 (2.1968)	Prec@1 40.6250 (40.5506)
+Epoch [30/110]	Batch [30/32]	Loss 2.0688 (2.1628)	Prec@1 46.8750 (42.2379)
+Training Time 255.615009785
+test accuracy
+Epoch [30/110]	Loss 1.4135 (2.9056)	Prec@1 60.0000 (37.2744)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [31/110]	Batch [0/32]	Loss 2.0470 (2.0470)	Prec@1 43.7500 (43.7500)
+Epoch [31/110]	Batch [10/32]	Loss 1.9900 (2.0172)	Prec@1 39.0625 (44.3182)
+Epoch [31/110]	Batch [20/32]	Loss 1.8674 (2.0058)	Prec@1 51.5625 (45.9077)
+Epoch [31/110]	Batch [30/32]	Loss 1.9685 (1.9945)	Prec@1 48.4375 (46.4718)
+Training Time 254.104444027
+test accuracy
+Epoch [31/110]	Loss 1.1641 (3.3350)	Prec@1 60.0000 (38.2989)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [32/110]	Batch [0/32]	Loss 2.1251 (2.1251)	Prec@1 37.5000 (37.5000)
+Epoch [32/110]	Batch [10/32]	Loss 2.3786 (1.9667)	Prec@1 37.5000 (45.3125)
+Epoch [32/110]	Batch [20/32]	Loss 1.9336 (1.9523)	Prec@1 50.0000 (45.6101)
+Epoch [32/110]	Batch [30/32]	Loss 2.0036 (1.9427)	Prec@1 45.3125 (46.2198)
+Training Time 253.869020939
+test accuracy
+Epoch [32/110]	Loss 1.2420 (3.0714)	Prec@1 60.0000 (38.7868)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [33/110]	Batch [0/32]	Loss 1.7292 (1.7292)	Prec@1 46.8750 (46.8750)
+Epoch [33/110]	Batch [10/32]	Loss 2.0703 (1.9297)	Prec@1 45.3125 (48.2955)
+Epoch [33/110]	Batch [20/32]	Loss 2.1879 (1.9600)	Prec@1 48.4375 (47.9911)
+Epoch [33/110]	Batch [30/32]	Loss 2.0496 (1.9448)	Prec@1 43.7500 (47.9335)
+Training Time 260.117505789
+test accuracy
+Epoch [33/110]	Loss 1.5053 (2.6776)	Prec@1 60.0000 (40.2992)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [34/110]	Batch [0/32]	Loss 2.1288 (2.1288)	Prec@1 48.4375 (48.4375)
+Epoch [34/110]	Batch [10/32]	Loss 2.0014 (1.8444)	Prec@1 42.1875 (51.4205)
+Epoch [34/110]	Batch [20/32]	Loss 2.1448 (1.8770)	Prec@1 34.3750 (49.6280)
+Epoch [34/110]	Batch [30/32]	Loss 1.8754 (1.8866)	Prec@1 51.5625 (48.8407)
+Training Time 257.698464155
+test accuracy
+Epoch [34/110]	Loss 1.0353 (3.1460)	Prec@1 60.0000 (39.5837)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [35/110]	Batch [0/32]	Loss 1.8155 (1.8155)	Prec@1 50.0000 (50.0000)
+Epoch [35/110]	Batch [10/32]	Loss 1.6417 (1.8065)	Prec@1 59.3750 (50.2841)
+Epoch [35/110]	Batch [20/32]	Loss 1.7662 (1.8302)	Prec@1 46.8750 (49.7024)
+Epoch [35/110]	Batch [30/32]	Loss 1.9760 (1.8798)	Prec@1 48.4375 (48.8911)
+Training Time 259.097478867
+test accuracy
+Epoch [35/110]	Loss 1.0057 (3.0472)	Prec@1 60.0000 (40.3480)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [36/110]	Batch [0/32]	Loss 1.7678 (1.7678)	Prec@1 64.0625 (64.0625)
+Epoch [36/110]	Batch [10/32]	Loss 2.0853 (1.9615)	Prec@1 45.3125 (49.7159)
+Epoch [36/110]	Batch [20/32]	Loss 1.7564 (1.8983)	Prec@1 50.0000 (49.4048)
+Epoch [36/110]	Batch [30/32]	Loss 1.7006 (1.8781)	Prec@1 56.2500 (49.9496)
+Training Time 260.77411294
+test accuracy
+Epoch [36/110]	Loss 1.1014 (2.7535)	Prec@1 60.0000 (41.0961)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [37/110]	Batch [0/32]	Loss 1.8665 (1.8665)	Prec@1 56.2500 (56.2500)
+Epoch [37/110]	Batch [10/32]	Loss 1.7943 (1.7811)	Prec@1 56.2500 (50.9943)
+Epoch [37/110]	Batch [20/32]	Loss 2.1579 (1.7966)	Prec@1 48.4375 (52.6042)
+Epoch [37/110]	Batch [30/32]	Loss 1.7854 (1.8343)	Prec@1 48.4375 (51.0081)
+Training Time 259.356992006
+test accuracy
+Epoch [37/110]	Loss 1.4208 (2.7625)	Prec@1 60.0000 (39.6812)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [38/110]	Batch [0/32]	Loss 1.7413 (1.7413)	Prec@1 57.8125 (57.8125)
+Epoch [38/110]	Batch [10/32]	Loss 1.8868 (1.8515)	Prec@1 46.8750 (50.0000)
+Epoch [38/110]	Batch [20/32]	Loss 2.0455 (1.8696)	Prec@1 48.4375 (49.9256)
+Epoch [38/110]	Batch [30/32]	Loss 1.5590 (1.8596)	Prec@1 60.9375 (50.3528)
+Training Time 262.296256065
+test accuracy
+Epoch [38/110]	Loss 1.1883 (3.8587)	Prec@1 60.0000 (40.4131)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [39/110]	Batch [0/32]	Loss 1.8437 (1.8437)	Prec@1 50.0000 (50.0000)
+Epoch [39/110]	Batch [10/32]	Loss 1.7257 (1.8136)	Prec@1 56.2500 (51.7045)
+Epoch [39/110]	Batch [20/32]	Loss 1.7615 (1.8060)	Prec@1 50.0000 (51.5625)
+Epoch [39/110]	Batch [30/32]	Loss 2.0567 (1.8034)	Prec@1 42.1875 (51.5625)
+Training Time 259.721826077
+test accuracy
+Epoch [39/110]	Loss 1.0398 (2.9443)	Prec@1 60.0000 (41.0148)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [40/110]	Batch [0/32]	Loss 1.7266 (1.7266)	Prec@1 51.5625 (51.5625)
+Epoch [40/110]	Batch [10/32]	Loss 1.7861 (1.7249)	Prec@1 48.4375 (50.7102)
+Epoch [40/110]	Batch [20/32]	Loss 1.6139 (1.7646)	Prec@1 54.6875 (51.4137)
+Epoch [40/110]	Batch [30/32]	Loss 1.9103 (1.7951)	Prec@1 42.1875 (50.5040)
+Training Time 259.816754818
+test accuracy
+Epoch [40/110]	Loss 1.1726 (2.9254)	Prec@1 60.0000 (41.4376)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [41/110]	Batch [0/32]	Loss 1.6905 (1.6905)	Prec@1 56.2500 (56.2500)
+Epoch [41/110]	Batch [10/32]	Loss 1.9900 (1.7774)	Prec@1 43.7500 (50.5682)
+Epoch [41/110]	Batch [20/32]	Loss 1.8063 (1.7623)	Prec@1 46.8750 (51.2649)
+Epoch [41/110]	Batch [30/32]	Loss 1.9934 (1.7620)	Prec@1 48.4375 (51.6129)
+Training Time 261.104944944
+test accuracy
+Epoch [41/110]	Loss 1.7679 (3.6979)	Prec@1 60.0000 (41.3238)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [42/110]	Batch [0/32]	Loss 1.5768 (1.5768)	Prec@1 57.8125 (57.8125)
+Epoch [42/110]	Batch [10/32]	Loss 1.6589 (1.7050)	Prec@1 45.3125 (53.1250)
+Epoch [42/110]	Batch [20/32]	Loss 1.7173 (1.7100)	Prec@1 48.4375 (52.3810)
+Epoch [42/110]	Batch [30/32]	Loss 1.8651 (1.7865)	Prec@1 45.3125 (50.7560)
+Training Time 262.136821032
+test accuracy
+Epoch [42/110]	Loss 1.5055 (2.8798)	Prec@1 60.0000 (41.2913)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [43/110]	Batch [0/32]	Loss 1.9987 (1.9987)	Prec@1 45.3125 (45.3125)
+Epoch [43/110]	Batch [10/32]	Loss 1.8606 (1.7470)	Prec@1 48.4375 (53.1250)
+Epoch [43/110]	Batch [20/32]	Loss 1.4422 (1.7539)	Prec@1 65.6250 (53.8690)
+Epoch [43/110]	Batch [30/32]	Loss 1.7771 (1.7598)	Prec@1 45.3125 (52.7218)
+Training Time 262.231781006
+test accuracy
+Epoch [43/110]	Loss 1.0448 (3.0329)	Prec@1 60.0000 (42.1695)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [44/110]	Batch [0/32]	Loss 1.5737 (1.5737)	Prec@1 50.0000 (50.0000)
+Epoch [44/110]	Batch [10/32]	Loss 1.4369 (1.7795)	Prec@1 65.6250 (51.8466)
+Epoch [44/110]	Batch [20/32]	Loss 1.8668 (1.7420)	Prec@1 53.1250 (52.5298)
+Epoch [44/110]	Batch [30/32]	Loss 2.0062 (1.7524)	Prec@1 40.6250 (51.8649)
+Training Time 263.537241936
+test accuracy
+Epoch [44/110]	Loss 1.2607 (2.6880)	Prec@1 60.0000 (42.0068)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [45/110]	Batch [0/32]	Loss 1.8467 (1.8467)	Prec@1 43.7500 (43.7500)
+Epoch [45/110]	Batch [10/32]	Loss 1.8626 (1.7454)	Prec@1 54.6875 (54.1193)
+Epoch [45/110]	Batch [20/32]	Loss 1.7617 (1.7588)	Prec@1 54.6875 (53.1250)
+Epoch [45/110]	Batch [30/32]	Loss 1.9036 (1.7504)	Prec@1 48.4375 (52.7722)
+Training Time 268.069564104
+test accuracy
+Epoch [45/110]	Loss 0.9030 (2.9237)	Prec@1 60.0000 (42.4459)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [46/110]	Batch [0/32]	Loss 2.0135 (2.0135)	Prec@1 46.8750 (46.8750)
+Epoch [46/110]	Batch [10/32]	Loss 1.8562 (1.7498)	Prec@1 51.5625 (54.8295)
+Epoch [46/110]	Batch [20/32]	Loss 1.9059 (1.7625)	Prec@1 39.0625 (53.5714)
+Epoch [46/110]	Batch [30/32]	Loss 1.7131 (1.7621)	Prec@1 51.5625 (52.6210)
+Training Time 264.214339018
+test accuracy
+Epoch [46/110]	Loss 0.9242 (4.1683)	Prec@1 80.0000 (40.9010)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [47/110]	Batch [0/32]	Loss 1.6741 (1.6741)	Prec@1 51.5625 (51.5625)
+Epoch [47/110]	Batch [10/32]	Loss 1.6099 (1.8344)	Prec@1 53.1250 (50.8523)
+Epoch [47/110]	Batch [20/32]	Loss 1.5221 (1.7523)	Prec@1 59.3750 (53.3482)
+Epoch [47/110]	Batch [30/32]	Loss 1.4908 (1.7225)	Prec@1 60.9375 (54.1331)
+Training Time 263.180896997
+test accuracy
+Epoch [47/110]	Loss 1.0282 (4.7735)	Prec@1 60.0000 (40.7383)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [48/110]	Batch [0/32]	Loss 1.7076 (1.7076)	Prec@1 59.3750 (59.3750)
+Epoch [48/110]	Batch [10/32]	Loss 1.5612 (1.6600)	Prec@1 51.5625 (53.4091)
+Epoch [48/110]	Batch [20/32]	Loss 1.8266 (1.6666)	Prec@1 45.3125 (54.5387)
+Epoch [48/110]	Batch [30/32]	Loss 2.0613 (1.6628)	Prec@1 43.7500 (54.7379)
+Training Time 263.163753033
+test accuracy
+Epoch [48/110]	Loss 1.7099 (3.0745)	Prec@1 60.0000 (42.9013)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [49/110]	Batch [0/32]	Loss 2.0427 (2.0427)	Prec@1 50.0000 (50.0000)
+Epoch [49/110]	Batch [10/32]	Loss 1.7054 (1.7180)	Prec@1 54.6875 (54.6875)
+Epoch [49/110]	Batch [20/32]	Loss 1.8342 (1.7317)	Prec@1 54.6875 (53.4970)
+Epoch [49/110]	Batch [30/32]	Loss 1.8072 (1.7513)	Prec@1 53.1250 (53.1250)
+Training Time 266.440089941
+test accuracy
+Epoch [49/110]	Loss 1.3505 (3.1235)	Prec@1 60.0000 (42.2345)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [50/110]	Batch [0/32]	Loss 1.3268 (1.3268)	Prec@1 62.5000 (62.5000)
+Epoch [50/110]	Batch [10/32]	Loss 1.5971 (1.6563)	Prec@1 53.1250 (54.2614)
+Epoch [50/110]	Batch [20/32]	Loss 1.4400 (1.6689)	Prec@1 67.1875 (55.1339)
+Epoch [50/110]	Batch [30/32]	Loss 1.4991 (1.6704)	Prec@1 64.0625 (54.7379)
+Training Time 264.165497065
+test accuracy
+Epoch [50/110]	Loss 0.9675 (2.9527)	Prec@1 60.0000 (41.6165)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [51/110]	Batch [0/32]	Loss 2.1036 (2.1036)	Prec@1 45.3125 (45.3125)
+Epoch [51/110]	Batch [10/32]	Loss 1.7251 (1.7255)	Prec@1 51.5625 (52.2727)
+Epoch [51/110]	Batch [20/32]	Loss 2.1312 (1.8203)	Prec@1 40.6250 (50.9673)
+Epoch [51/110]	Batch [30/32]	Loss 1.9061 (1.7655)	Prec@1 40.6250 (51.9153)
+Training Time 265.888576031
+test accuracy
+Epoch [51/110]	Loss 0.6105 (5.1274)	Prec@1 80.0000 (41.5677)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [52/110]	Batch [0/32]	Loss 1.8750 (1.8750)	Prec@1 46.8750 (46.8750)
+Epoch [52/110]	Batch [10/32]	Loss 1.7323 (1.6870)	Prec@1 56.2500 (53.9773)
+Epoch [52/110]	Batch [20/32]	Loss 1.8906 (1.6710)	Prec@1 51.5625 (53.5714)
+Epoch [52/110]	Batch [30/32]	Loss 1.7649 (1.6903)	Prec@1 54.6875 (53.8810)
+Training Time 265.966209173
+test accuracy
+Epoch [52/110]	Loss 0.7475 (3.2580)	Prec@1 80.0000 (42.3321)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [53/110]	Batch [0/32]	Loss 1.7699 (1.7699)	Prec@1 60.9375 (60.9375)
+Epoch [53/110]	Batch [10/32]	Loss 1.7551 (1.6706)	Prec@1 51.5625 (54.9716)
+Epoch [53/110]	Batch [20/32]	Loss 1.5001 (1.6348)	Prec@1 64.0625 (55.5804)
+Epoch [53/110]	Batch [30/32]	Loss 1.7052 (1.6583)	Prec@1 51.5625 (54.4859)
+Training Time 259.112318993
+test accuracy
+Epoch [53/110]	Loss 0.8045 (2.8857)	Prec@1 80.0000 (42.9175)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [54/110]	Batch [0/32]	Loss 1.5084 (1.5084)	Prec@1 56.2500 (56.2500)
+Epoch [54/110]	Batch [10/32]	Loss 1.6245 (1.6196)	Prec@1 50.0000 (54.9716)
+Epoch [54/110]	Batch [20/32]	Loss 1.6887 (1.6119)	Prec@1 46.8750 (54.9851)
+Epoch [54/110]	Batch [30/32]	Loss 1.5160 (1.6315)	Prec@1 60.9375 (54.3851)
+Training Time 260.114423037
+test accuracy
+Epoch [54/110]	Loss 0.7706 (2.9278)	Prec@1 80.0000 (42.6086)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [55/110]	Batch [0/32]	Loss 1.6586 (1.6586)	Prec@1 54.6875 (54.6875)
+Epoch [55/110]	Batch [10/32]	Loss 1.7634 (1.6470)	Prec@1 54.6875 (56.5341)
+Epoch [55/110]	Batch [20/32]	Loss 1.4354 (1.6456)	Prec@1 59.3750 (54.7619)
+Epoch [55/110]	Batch [30/32]	Loss 1.5784 (1.6293)	Prec@1 59.3750 (54.9899)
+Training Time 257.519799948
+test accuracy
+Epoch [55/110]	Loss 0.6530 (5.0027)	Prec@1 80.0000 (40.3805)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [56/110]	Batch [0/32]	Loss 1.3078 (1.3078)	Prec@1 59.3750 (59.3750)
+Epoch [56/110]	Batch [10/32]	Loss 1.3792 (1.5882)	Prec@1 59.3750 (58.6648)
+Epoch [56/110]	Batch [20/32]	Loss 1.7111 (1.5782)	Prec@1 50.0000 (57.5149)
+Epoch [56/110]	Batch [30/32]	Loss 1.6218 (1.6272)	Prec@1 60.9375 (56.1996)
+Training Time 261.106358051
+test accuracy
+Epoch [56/110]	Loss 0.8184 (3.4728)	Prec@1 80.0000 (43.2916)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [57/110]	Batch [0/32]	Loss 1.5834 (1.5834)	Prec@1 56.2500 (56.2500)
+Epoch [57/110]	Batch [10/32]	Loss 1.6782 (1.6039)	Prec@1 54.6875 (55.8239)
+Epoch [57/110]	Batch [20/32]	Loss 1.9476 (1.6635)	Prec@1 53.1250 (54.0179)
+Epoch [57/110]	Batch [30/32]	Loss 1.5625 (1.6523)	Prec@1 53.1250 (54.6371)
+Training Time 256.613259077
+test accuracy
+Epoch [57/110]	Loss 0.7427 (3.4829)	Prec@1 60.0000 (42.8688)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [58/110]	Batch [0/32]	Loss 1.6881 (1.6881)	Prec@1 51.5625 (51.5625)
+Epoch [58/110]	Batch [10/32]	Loss 1.8249 (1.6615)	Prec@1 50.0000 (52.5568)
+Epoch [58/110]	Batch [20/32]	Loss 1.6404 (1.5992)	Prec@1 53.1250 (54.6131)
+Epoch [58/110]	Batch [30/32]	Loss 1.3015 (1.6394)	Prec@1 57.8125 (53.8810)
+Training Time 257.847180843
+test accuracy
+Epoch [58/110]	Loss 0.6781 (3.0627)	Prec@1 80.0000 (43.9584)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [59/110]	Batch [0/32]	Loss 1.3979 (1.3979)	Prec@1 64.0625 (64.0625)
+Epoch [59/110]	Batch [10/32]	Loss 1.9635 (1.5194)	Prec@1 50.0000 (59.5170)
+Epoch [59/110]	Batch [20/32]	Loss 1.9064 (1.5578)	Prec@1 40.6250 (57.5149)
+Epoch [59/110]	Batch [30/32]	Loss 1.7075 (1.5993)	Prec@1 57.8125 (55.9980)
+Training Time 258.856693983
+test accuracy
+Epoch [59/110]	Loss 0.8582 (3.0284)	Prec@1 60.0000 (44.2348)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [60/110]	Batch [0/32]	Loss 1.4565 (1.4565)	Prec@1 62.5000 (62.5000)
+Epoch [60/110]	Batch [10/32]	Loss 1.3708 (1.4132)	Prec@1 57.8125 (60.6534)
+Epoch [60/110]	Batch [20/32]	Loss 1.6144 (1.5484)	Prec@1 53.1250 (57.1429)
+Epoch [60/110]	Batch [30/32]	Loss 1.3622 (1.5351)	Prec@1 65.6250 (58.2661)
+Training Time 260.015014887
+test accuracy
+Epoch [60/110]	Loss 0.8623 (3.2189)	Prec@1 60.0000 (44.5113)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [61/110]	Batch [0/32]	Loss 1.7006 (1.7006)	Prec@1 54.6875 (54.6875)
+Epoch [61/110]	Batch [10/32]	Loss 1.8454 (1.6239)	Prec@1 48.4375 (55.2557)
+Epoch [61/110]	Batch [20/32]	Loss 1.5860 (1.5989)	Prec@1 59.3750 (56.7708)
+Epoch [61/110]	Batch [30/32]	Loss 1.7720 (1.5881)	Prec@1 53.1250 (56.7540)
+Training Time 266.051548958
+test accuracy
+Epoch [61/110]	Loss 1.0427 (3.3583)	Prec@1 60.0000 (44.4137)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [62/110]	Batch [0/32]	Loss 1.6753 (1.6753)	Prec@1 54.6875 (54.6875)
+Epoch [62/110]	Batch [10/32]	Loss 1.4504 (1.5938)	Prec@1 62.5000 (54.4034)
+Epoch [62/110]	Batch [20/32]	Loss 1.6014 (1.5784)	Prec@1 57.8125 (56.3244)
+Epoch [62/110]	Batch [30/32]	Loss 1.6286 (1.5727)	Prec@1 53.1250 (56.8044)
+Training Time 266.385667086
+test accuracy
+Epoch [62/110]	Loss 0.8424 (3.7588)	Prec@1 60.0000 (43.8120)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [63/110]	Batch [0/32]	Loss 1.5062 (1.5062)	Prec@1 59.3750 (59.3750)
+Epoch [63/110]	Batch [10/32]	Loss 1.5723 (1.5270)	Prec@1 64.0625 (59.0909)
+Epoch [63/110]	Batch [20/32]	Loss 1.5410 (1.5214)	Prec@1 64.0625 (59.5238)
+Epoch [63/110]	Batch [30/32]	Loss 1.7898 (1.5612)	Prec@1 53.1250 (58.5181)
+Training Time 264.903935194
+test accuracy
+Epoch [63/110]	Loss 1.0345 (3.8782)	Prec@1 60.0000 (43.9746)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [64/110]	Batch [0/32]	Loss 1.9135 (1.9135)	Prec@1 53.1250 (53.1250)
+Epoch [64/110]	Batch [10/32]	Loss 1.4078 (1.5629)	Prec@1 64.0625 (57.9545)
+Epoch [64/110]	Batch [20/32]	Loss 1.7871 (1.5999)	Prec@1 53.1250 (57.2917)
+Epoch [64/110]	Batch [30/32]	Loss 1.6037 (1.6066)	Prec@1 51.5625 (56.5020)
+Training Time 264.704319
+test accuracy
+Epoch [64/110]	Loss 1.0205 (3.8149)	Prec@1 60.0000 (43.9096)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [65/110]	Batch [0/32]	Loss 1.6644 (1.6644)	Prec@1 56.2500 (56.2500)
+Epoch [65/110]	Batch [10/32]	Loss 1.6698 (1.5764)	Prec@1 53.1250 (56.9602)
+Epoch [65/110]	Batch [20/32]	Loss 1.4003 (1.5652)	Prec@1 56.2500 (57.7381)
+Epoch [65/110]	Batch [30/32]	Loss 1.2716 (1.5729)	Prec@1 71.8750 (57.4597)
+Training Time 265.181409121
+test accuracy
+Epoch [65/110]	Loss 1.0641 (3.0285)	Prec@1 60.0000 (44.5438)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [66/110]	Batch [0/32]	Loss 1.6364 (1.6364)	Prec@1 56.2500 (56.2500)
+Epoch [66/110]	Batch [10/32]	Loss 1.4356 (1.5407)	Prec@1 62.5000 (56.9602)
+Epoch [66/110]	Batch [20/32]	Loss 1.5046 (1.5321)	Prec@1 56.2500 (58.0357)
+Epoch [66/110]	Batch [30/32]	Loss 1.2855 (1.5241)	Prec@1 64.0625 (58.4173)
+Training Time 264.415609121
+test accuracy
+Epoch [66/110]	Loss 0.8467 (3.4884)	Prec@1 60.0000 (43.6494)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [67/110]	Batch [0/32]	Loss 2.0437 (2.0437)	Prec@1 40.6250 (40.6250)
+Epoch [67/110]	Batch [10/32]	Loss 1.6392 (1.5644)	Prec@1 48.4375 (54.4034)
+Epoch [67/110]	Batch [20/32]	Loss 1.2698 (1.5619)	Prec@1 65.6250 (56.0268)
+Epoch [67/110]	Batch [30/32]	Loss 1.7738 (1.5532)	Prec@1 51.5625 (57.0060)
+Training Time 269.708692074
+test accuracy
+Epoch [67/110]	Loss 0.6116 (3.6957)	Prec@1 80.0000 (43.2103)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [68/110]	Batch [0/32]	Loss 1.8285 (1.8285)	Prec@1 46.8750 (46.8750)
+Epoch [68/110]	Batch [10/32]	Loss 1.6698 (1.5859)	Prec@1 51.5625 (57.2443)
+Epoch [68/110]	Batch [20/32]	Loss 1.5189 (1.5912)	Prec@1 62.5000 (57.3661)
+Epoch [68/110]	Batch [30/32]	Loss 1.5071 (1.5496)	Prec@1 60.9375 (58.1149)
+Training Time 263.590807199
+test accuracy
+Epoch [68/110]	Loss 0.8756 (3.7740)	Prec@1 60.0000 (43.2591)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [69/110]	Batch [0/32]	Loss 1.3000 (1.3000)	Prec@1 68.7500 (68.7500)
+Epoch [69/110]	Batch [10/32]	Loss 1.0074 (1.4046)	Prec@1 71.8750 (61.5057)
+Epoch [69/110]	Batch [20/32]	Loss 1.5671 (1.4710)	Prec@1 59.3750 (60.9375)
+Epoch [69/110]	Batch [30/32]	Loss 1.4578 (1.4897)	Prec@1 62.5000 (60.2823)
+Training Time 264.942012072
+test accuracy
+Epoch [69/110]	Loss 0.4306 (2.8444)	Prec@1 80.0000 (45.3244)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [70/110]	Batch [0/32]	Loss 1.4907 (1.4907)	Prec@1 54.6875 (54.6875)
+Epoch [70/110]	Batch [10/32]	Loss 1.4479 (1.4956)	Prec@1 64.0625 (57.5284)
+Epoch [70/110]	Batch [20/32]	Loss 1.3710 (1.4848)	Prec@1 56.2500 (58.6310)
+Epoch [70/110]	Batch [30/32]	Loss 1.2894 (1.4757)	Prec@1 73.4375 (58.9214)
+Training Time 259.513988972
+test accuracy
+Epoch [70/110]	Loss 0.5562 (2.9175)	Prec@1 80.0000 (43.9746)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [71/110]	Batch [0/32]	Loss 1.4214 (1.4214)	Prec@1 62.5000 (62.5000)
+Epoch [71/110]	Batch [10/32]	Loss 1.5650 (1.4818)	Prec@1 59.3750 (60.0852)
+Epoch [71/110]	Batch [20/32]	Loss 1.7925 (1.5050)	Prec@1 59.3750 (59.5982)
+Epoch [71/110]	Batch [30/32]	Loss 1.4121 (1.4904)	Prec@1 59.3750 (59.7278)
+Training Time 263.40904808
+test accuracy
+Epoch [71/110]	Loss 0.7162 (4.1877)	Prec@1 80.0000 (44.0072)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [72/110]	Batch [0/32]	Loss 1.6700 (1.6700)	Prec@1 53.1250 (53.1250)
+Epoch [72/110]	Batch [10/32]	Loss 1.5017 (1.4204)	Prec@1 60.9375 (60.5114)
+Epoch [72/110]	Batch [20/32]	Loss 1.9759 (1.4568)	Prec@1 43.7500 (59.5982)
+Epoch [72/110]	Batch [30/32]	Loss 1.5028 (1.5159)	Prec@1 67.1875 (58.3669)
+Training Time 261.834347963
+test accuracy
+Epoch [72/110]	Loss 0.6585 (3.8552)	Prec@1 80.0000 (43.0314)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [73/110]	Batch [0/32]	Loss 1.5154 (1.5154)	Prec@1 62.5000 (62.5000)
+Epoch [73/110]	Batch [10/32]	Loss 1.3768 (1.4480)	Prec@1 68.7500 (61.0795)
+Epoch [73/110]	Batch [20/32]	Loss 1.3534 (1.4648)	Prec@1 62.5000 (61.2351)
+Epoch [73/110]	Batch [30/32]	Loss 1.4806 (1.4800)	Prec@1 57.8125 (60.7863)
+Training Time 267.523051023
+test accuracy
+Epoch [73/110]	Loss 0.5231 (3.1350)	Prec@1 80.0000 (44.3812)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [74/110]	Batch [0/32]	Loss 1.7833 (1.7833)	Prec@1 51.5625 (51.5625)
+Epoch [74/110]	Batch [10/32]	Loss 1.6422 (1.6027)	Prec@1 56.2500 (57.3864)
+Epoch [74/110]	Batch [20/32]	Loss 1.7758 (1.5301)	Prec@1 51.5625 (59.0030)
+Epoch [74/110]	Batch [30/32]	Loss 1.4389 (1.5242)	Prec@1 53.1250 (58.1653)
+Training Time 264.976114035
+test accuracy
+Epoch [74/110]	Loss 0.4901 (3.4515)	Prec@1 80.0000 (44.5438)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [75/110]	Batch [0/32]	Loss 1.4932 (1.4932)	Prec@1 50.0000 (50.0000)
+Epoch [75/110]	Batch [10/32]	Loss 1.7304 (1.5587)	Prec@1 57.8125 (55.8239)
+Epoch [75/110]	Batch [20/32]	Loss 1.5846 (1.5148)	Prec@1 57.8125 (57.8125)
+Epoch [75/110]	Batch [30/32]	Loss 1.6713 (1.5106)	Prec@1 51.5625 (58.2661)
+Training Time 265.339159012
+test accuracy
+Epoch [75/110]	Loss 0.9164 (3.3298)	Prec@1 60.0000 (44.7227)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [76/110]	Batch [0/32]	Loss 1.5766 (1.5766)	Prec@1 56.2500 (56.2500)
+Epoch [76/110]	Batch [10/32]	Loss 1.5229 (1.5389)	Prec@1 56.2500 (57.6705)
+Epoch [76/110]	Batch [20/32]	Loss 1.5825 (1.5154)	Prec@1 54.6875 (57.7381)
+Epoch [76/110]	Batch [30/32]	Loss 1.4482 (1.5059)	Prec@1 53.1250 (57.9637)
+Training Time 265.366941929
+test accuracy
+Epoch [76/110]	Loss 0.6464 (4.4163)	Prec@1 80.0000 (43.5355)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [77/110]	Batch [0/32]	Loss 1.7588 (1.7588)	Prec@1 56.2500 (56.2500)
+Epoch [77/110]	Batch [10/32]	Loss 1.4912 (1.5539)	Prec@1 59.3750 (57.8125)
+Epoch [77/110]	Batch [20/32]	Loss 1.5028 (1.5239)	Prec@1 59.3750 (59.4494)
+Epoch [77/110]	Batch [30/32]	Loss 1.2009 (1.4999)	Prec@1 67.1875 (59.7782)
+Training Time 266.972856998
+test accuracy
+Epoch [77/110]	Loss 0.8468 (4.4917)	Prec@1 60.0000 (42.8037)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [78/110]	Batch [0/32]	Loss 1.4861 (1.4861)	Prec@1 65.6250 (65.6250)
+Epoch [78/110]	Batch [10/32]	Loss 1.6179 (1.5469)	Prec@1 59.3750 (57.6705)
+Epoch [78/110]	Batch [20/32]	Loss 1.4705 (1.5043)	Prec@1 57.8125 (59.0774)
+Epoch [78/110]	Batch [30/32]	Loss 1.7278 (1.5371)	Prec@1 50.0000 (58.4173)
+Training Time 267.487905979
+test accuracy
+Epoch [78/110]	Loss 0.6336 (3.0408)	Prec@1 60.0000 (44.6251)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [79/110]	Batch [0/32]	Loss 1.3505 (1.3505)	Prec@1 62.5000 (62.5000)
+Epoch [79/110]	Batch [10/32]	Loss 1.4553 (1.5267)	Prec@1 59.3750 (59.3750)
+Epoch [79/110]	Batch [20/32]	Loss 1.6562 (1.5185)	Prec@1 54.6875 (58.9286)
+Epoch [79/110]	Batch [30/32]	Loss 1.4993 (1.5086)	Prec@1 59.3750 (58.3165)
+Training Time 264.12675786
+test accuracy
+Epoch [79/110]	Loss 0.4327 (4.6207)	Prec@1 80.0000 (43.0314)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [80/110]	Batch [0/32]	Loss 1.6807 (1.6807)	Prec@1 51.5625 (51.5625)
+Epoch [80/110]	Batch [10/32]	Loss 1.4746 (1.5568)	Prec@1 62.5000 (56.6761)
+Epoch [80/110]	Batch [20/32]	Loss 1.3301 (1.5626)	Prec@1 67.1875 (57.2173)
+Epoch [80/110]	Batch [30/32]	Loss 1.4295 (1.5227)	Prec@1 60.9375 (58.3669)
+Training Time 253.696066856
+test accuracy
+Epoch [80/110]	Loss 0.4546 (4.1147)	Prec@1 80.0000 (42.7712)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [81/110]	Batch [0/32]	Loss 1.7818 (1.7818)	Prec@1 48.4375 (48.4375)
+Epoch [81/110]	Batch [10/32]	Loss 1.1089 (1.5435)	Prec@1 76.5625 (56.2500)
+Epoch [81/110]	Batch [20/32]	Loss 1.7491 (1.4970)	Prec@1 45.3125 (58.6310)
+Epoch [81/110]	Batch [30/32]	Loss 1.3840 (1.5084)	Prec@1 67.1875 (59.7278)
+Training Time 244.308713913
+test accuracy
+Epoch [81/110]	Loss 0.6181 (4.0483)	Prec@1 80.0000 (43.0964)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [82/110]	Batch [0/32]	Loss 1.4697 (1.4697)	Prec@1 60.9375 (60.9375)
+Epoch [82/110]	Batch [10/32]	Loss 1.6514 (1.4866)	Prec@1 57.8125 (60.3693)
+Epoch [82/110]	Batch [20/32]	Loss 1.4261 (1.5110)	Prec@1 59.3750 (59.3006)
+Epoch [82/110]	Batch [30/32]	Loss 1.4090 (1.5382)	Prec@1 54.6875 (58.1149)
+Training Time 243.388128042
+test accuracy
+Epoch [82/110]	Loss 0.7081 (4.1914)	Prec@1 80.0000 (43.7795)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [83/110]	Batch [0/32]	Loss 1.6118 (1.6118)	Prec@1 56.2500 (56.2500)
+Epoch [83/110]	Batch [10/32]	Loss 1.5652 (1.4992)	Prec@1 56.2500 (57.8125)
+Epoch [83/110]	Batch [20/32]	Loss 1.4977 (1.4665)	Prec@1 64.0625 (59.8214)
+Epoch [83/110]	Batch [30/32]	Loss 1.4826 (1.5137)	Prec@1 57.8125 (58.0645)
+Training Time 241.260887861
+test accuracy
+Epoch [83/110]	Loss 0.7269 (4.1003)	Prec@1 80.0000 (43.6982)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [84/110]	Batch [0/32]	Loss 1.4798 (1.4798)	Prec@1 57.8125 (57.8125)
+Epoch [84/110]	Batch [10/32]	Loss 1.5992 (1.5478)	Prec@1 67.1875 (56.3920)
+Epoch [84/110]	Batch [20/32]	Loss 1.6836 (1.5248)	Prec@1 54.6875 (58.4821)
+Epoch [84/110]	Batch [30/32]	Loss 1.8201 (1.5096)	Prec@1 48.4375 (58.5685)
+Training Time 240.079161882
+test accuracy
+Epoch [84/110]	Loss 0.7576 (3.2799)	Prec@1 80.0000 (45.1456)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [85/110]	Batch [0/32]	Loss 1.4490 (1.4490)	Prec@1 60.9375 (60.9375)
+Epoch [85/110]	Batch [10/32]	Loss 1.3762 (1.4441)	Prec@1 59.3750 (61.3636)
+Epoch [85/110]	Batch [20/32]	Loss 1.2703 (1.4314)	Prec@1 67.1875 (61.6071)
+Epoch [85/110]	Batch [30/32]	Loss 1.2639 (1.4756)	Prec@1 64.0625 (59.8790)
+Training Time 240.063499928
+test accuracy
+Epoch [85/110]	Loss 0.8241 (3.9430)	Prec@1 60.0000 (43.6982)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [86/110]	Batch [0/32]	Loss 1.2502 (1.2502)	Prec@1 64.0625 (64.0625)
+Epoch [86/110]	Batch [10/32]	Loss 1.7495 (1.5398)	Prec@1 51.5625 (57.9545)
+Epoch [86/110]	Batch [20/32]	Loss 1.3397 (1.5349)	Prec@1 67.1875 (57.5149)
+Epoch [86/110]	Batch [30/32]	Loss 1.6934 (1.5500)	Prec@1 54.6875 (57.3085)
+Training Time 240.428853035
+test accuracy
+Epoch [86/110]	Loss 0.7609 (3.0515)	Prec@1 60.0000 (45.2431)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [87/110]	Batch [0/32]	Loss 1.2662 (1.2662)	Prec@1 62.5000 (62.5000)
+Epoch [87/110]	Batch [10/32]	Loss 1.6235 (1.5306)	Prec@1 51.5625 (57.2443)
+Epoch [87/110]	Batch [20/32]	Loss 1.5578 (1.4837)	Prec@1 51.5625 (58.9286)
+Epoch [87/110]	Batch [30/32]	Loss 1.5526 (1.5371)	Prec@1 53.1250 (57.7621)
+Training Time 241.469045877
+test accuracy
+Epoch [87/110]	Loss 0.8026 (3.3044)	Prec@1 60.0000 (43.9584)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [88/110]	Batch [0/32]	Loss 1.5154 (1.5154)	Prec@1 57.8125 (57.8125)
+Epoch [88/110]	Batch [10/32]	Loss 1.4719 (1.5773)	Prec@1 59.3750 (56.8182)
+Epoch [88/110]	Batch [20/32]	Loss 1.2323 (1.5044)	Prec@1 65.6250 (59.3006)
+Epoch [88/110]	Batch [30/32]	Loss 1.2686 (1.5000)	Prec@1 62.5000 (59.1734)
+Training Time 245.052703857
+test accuracy
+Epoch [88/110]	Loss 1.0302 (4.0488)	Prec@1 60.0000 (43.7795)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [89/110]	Batch [0/32]	Loss 1.2477 (1.2477)	Prec@1 76.5625 (76.5625)
+Epoch [89/110]	Batch [10/32]	Loss 1.4145 (1.5350)	Prec@1 64.0625 (58.0966)
+Epoch [89/110]	Batch [20/32]	Loss 1.4756 (1.5294)	Prec@1 56.2500 (57.2173)
+Epoch [89/110]	Batch [30/32]	Loss 1.4484 (1.5157)	Prec@1 62.5000 (58.1653)
+Training Time 243.524117947
+test accuracy
+Epoch [89/110]	Loss 0.6286 (4.4273)	Prec@1 80.0000 (44.0234)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [90/110]	Batch [0/32]	Loss 1.3898 (1.3898)	Prec@1 62.5000 (62.5000)
+Epoch [90/110]	Batch [10/32]	Loss 1.3630 (1.5544)	Prec@1 59.3750 (56.3920)
+Epoch [90/110]	Batch [20/32]	Loss 1.6874 (1.5562)	Prec@1 53.1250 (56.9196)
+Epoch [90/110]	Batch [30/32]	Loss 1.5492 (1.5553)	Prec@1 56.2500 (57.9133)
+Training Time 247.869554043
+test accuracy
+Epoch [90/110]	Loss 0.7584 (2.7669)	Prec@1 60.0000 (45.2106)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [91/110]	Batch [0/32]	Loss 1.2338 (1.2338)	Prec@1 65.6250 (65.6250)
+Epoch [91/110]	Batch [10/32]	Loss 1.3621 (1.4522)	Prec@1 64.0625 (58.8068)
+Epoch [91/110]	Batch [20/32]	Loss 1.7360 (1.4680)	Prec@1 50.0000 (59.2262)
+Epoch [91/110]	Batch [30/32]	Loss 1.2079 (1.4680)	Prec@1 60.9375 (59.3750)
+Training Time 253.515609026
+test accuracy
+Epoch [91/110]	Loss 0.5760 (3.2523)	Prec@1 80.0000 (44.7715)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [92/110]	Batch [0/32]	Loss 1.5567 (1.5567)	Prec@1 54.6875 (54.6875)
+Epoch [92/110]	Batch [10/32]	Loss 1.4741 (1.4632)	Prec@1 59.3750 (60.6534)
+Epoch [92/110]	Batch [20/32]	Loss 1.6624 (1.4911)	Prec@1 54.6875 (59.8214)
+Epoch [92/110]	Batch [30/32]	Loss 1.6185 (1.4826)	Prec@1 54.6875 (60.2319)
+Training Time 239.155369997
+test accuracy
+Epoch [92/110]	Loss 0.7361 (3.4616)	Prec@1 80.0000 (44.0234)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [93/110]	Batch [0/32]	Loss 1.5292 (1.5292)	Prec@1 50.0000 (50.0000)
+Epoch [93/110]	Batch [10/32]	Loss 1.4375 (1.6380)	Prec@1 65.6250 (55.8239)
+Epoch [93/110]	Batch [20/32]	Loss 1.2606 (1.5152)	Prec@1 68.7500 (58.9286)
+Epoch [93/110]	Batch [30/32]	Loss 1.6892 (1.4839)	Prec@1 53.1250 (59.3246)
+Training Time 239.579380035
+test accuracy
+Epoch [93/110]	Loss 0.7477 (4.4071)	Prec@1 80.0000 (43.7632)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [94/110]	Batch [0/32]	Loss 1.6497 (1.6497)	Prec@1 57.8125 (57.8125)
+Epoch [94/110]	Batch [10/32]	Loss 1.4652 (1.4286)	Prec@1 57.8125 (61.5057)
+Epoch [94/110]	Batch [20/32]	Loss 1.5043 (1.4533)	Prec@1 57.8125 (60.4167)
+Epoch [94/110]	Batch [30/32]	Loss 1.6161 (1.4638)	Prec@1 57.8125 (60.3831)
+Training Time 243.564409971
+test accuracy
+Epoch [94/110]	Loss 0.6605 (5.2492)	Prec@1 80.0000 (43.3566)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [95/110]	Batch [0/32]	Loss 1.4658 (1.4658)	Prec@1 57.8125 (57.8125)
+Epoch [95/110]	Batch [10/32]	Loss 1.3463 (1.4239)	Prec@1 62.5000 (59.9432)
+Epoch [95/110]	Batch [20/32]	Loss 1.2690 (1.4372)	Prec@1 60.9375 (60.2679)
+Epoch [95/110]	Batch [30/32]	Loss 1.5381 (1.4487)	Prec@1 48.4375 (59.9294)
+Training Time 261.299472809
+test accuracy
+Epoch [95/110]	Loss 0.6296 (4.5062)	Prec@1 60.0000 (43.4867)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [96/110]	Batch [0/32]	Loss 1.3385 (1.3385)	Prec@1 60.9375 (60.9375)
+Epoch [96/110]	Batch [10/32]	Loss 1.5342 (1.5140)	Prec@1 54.6875 (58.0966)
+Epoch [96/110]	Batch [20/32]	Loss 1.4342 (1.4835)	Prec@1 62.5000 (59.7470)
+Epoch [96/110]	Batch [30/32]	Loss 1.3702 (1.5297)	Prec@1 53.1250 (58.4173)
+Training Time 250.616661072
+test accuracy
+Epoch [96/110]	Loss 0.9507 (4.4844)	Prec@1 60.0000 (43.5681)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [97/110]	Batch [0/32]	Loss 1.1069 (1.1069)	Prec@1 71.8750 (71.8750)
+Epoch [97/110]	Batch [10/32]	Loss 1.4439 (1.4427)	Prec@1 62.5000 (62.0739)
+Epoch [97/110]	Batch [20/32]	Loss 1.3972 (1.4832)	Prec@1 60.9375 (60.4911)
+Epoch [97/110]	Batch [30/32]	Loss 1.2605 (1.4804)	Prec@1 65.6250 (60.6351)
+Training Time 246.773428917
+test accuracy
+Epoch [97/110]	Loss 0.7460 (4.2176)	Prec@1 60.0000 (43.3079)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [98/110]	Batch [0/32]	Loss 1.8298 (1.8298)	Prec@1 45.3125 (45.3125)
+Epoch [98/110]	Batch [10/32]	Loss 1.2334 (1.5358)	Prec@1 68.7500 (57.5284)
+Epoch [98/110]	Batch [20/32]	Loss 1.4777 (1.5288)	Prec@1 65.6250 (58.0357)
+Epoch [98/110]	Batch [30/32]	Loss 1.2506 (1.4964)	Prec@1 65.6250 (58.7198)
+Training Time 244.277415037
+test accuracy
+Epoch [98/110]	Loss 0.9022 (4.2140)	Prec@1 60.0000 (43.1127)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [99/110]	Batch [0/32]	Loss 1.4704 (1.4704)	Prec@1 57.8125 (57.8125)
+Epoch [99/110]	Batch [10/32]	Loss 1.5640 (1.5173)	Prec@1 54.6875 (57.2443)
+Epoch [99/110]	Batch [20/32]	Loss 1.0958 (1.5077)	Prec@1 75.0000 (57.9613)
+Epoch [99/110]	Batch [30/32]	Loss 1.5268 (1.5087)	Prec@1 56.2500 (58.3669)
+Training Time 242.716553211
+test accuracy
+Epoch [99/110]	Loss 0.8630 (2.8309)	Prec@1 60.0000 (44.2999)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [100/110]	Batch [0/32]	Loss 1.7198 (1.7198)	Prec@1 48.4375 (48.4375)
+Epoch [100/110]	Batch [10/32]	Loss 1.6694 (1.5540)	Prec@1 56.2500 (57.8125)
+Epoch [100/110]	Batch [20/32]	Loss 1.4222 (1.5363)	Prec@1 60.9375 (57.8869)
+Epoch [100/110]	Batch [30/32]	Loss 1.4246 (1.5094)	Prec@1 51.5625 (58.8710)
+Training Time 241.991320133
+test accuracy
+Epoch [100/110]	Loss 0.7251 (3.1326)	Prec@1 60.0000 (45.4708)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [101/110]	Batch [0/32]	Loss 1.1980 (1.1980)	Prec@1 68.7500 (68.7500)
+Epoch [101/110]	Batch [10/32]	Loss 1.2805 (1.4903)	Prec@1 68.7500 (58.0966)
+Epoch [101/110]	Batch [20/32]	Loss 1.2892 (1.5026)	Prec@1 65.6250 (57.7381)
+Epoch [101/110]	Batch [30/32]	Loss 1.5538 (1.4923)	Prec@1 54.6875 (58.2157)
+Training Time 240.715162039
+test accuracy
+Epoch [101/110]	Loss 0.6769 (4.0298)	Prec@1 80.0000 (43.3729)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [102/110]	Batch [0/32]	Loss 1.5263 (1.5263)	Prec@1 59.3750 (59.3750)
+Epoch [102/110]	Batch [10/32]	Loss 1.5437 (1.5521)	Prec@1 56.2500 (58.9489)
+Epoch [102/110]	Batch [20/32]	Loss 1.6533 (1.5708)	Prec@1 56.2500 (57.5149)
+Epoch [102/110]	Batch [30/32]	Loss 1.5012 (1.5496)	Prec@1 57.8125 (57.0565)
+Training Time 247.220978022
+test accuracy
+Epoch [102/110]	Loss 0.7091 (3.5959)	Prec@1 60.0000 (43.5355)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [103/110]	Batch [0/32]	Loss 1.5070 (1.5070)	Prec@1 59.3750 (59.3750)
+Epoch [103/110]	Batch [10/32]	Loss 1.7394 (1.6050)	Prec@1 57.8125 (58.2386)
+Epoch [103/110]	Batch [20/32]	Loss 1.7329 (1.5709)	Prec@1 51.5625 (58.6310)
+Epoch [103/110]	Batch [30/32]	Loss 1.5027 (1.5518)	Prec@1 62.5000 (59.1230)
+Training Time 245.238053083
+test accuracy
+Epoch [103/110]	Loss 0.6481 (3.8765)	Prec@1 80.0000 (44.3487)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [104/110]	Batch [0/32]	Loss 1.3653 (1.3653)	Prec@1 65.6250 (65.6250)
+Epoch [104/110]	Batch [10/32]	Loss 1.5415 (1.5370)	Prec@1 59.3750 (59.5170)
+Epoch [104/110]	Batch [20/32]	Loss 1.1889 (1.5555)	Prec@1 70.3125 (58.3333)
+Epoch [104/110]	Batch [30/32]	Loss 1.3463 (1.5192)	Prec@1 54.6875 (58.4677)
+Training Time 242.205114841
+test accuracy
+Epoch [104/110]	Loss 0.6673 (3.2189)	Prec@1 80.0000 (44.8203)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [105/110]	Batch [0/32]	Loss 1.6702 (1.6702)	Prec@1 50.0000 (50.0000)
+Epoch [105/110]	Batch [10/32]	Loss 1.3273 (1.5783)	Prec@1 59.3750 (57.9545)
+Epoch [105/110]	Batch [20/32]	Loss 1.2494 (1.4718)	Prec@1 64.0625 (61.0863)
+Epoch [105/110]	Batch [30/32]	Loss 1.2090 (1.4798)	Prec@1 70.3125 (60.5343)
+Training Time 245.998926163
+test accuracy
+Epoch [105/110]	Loss 1.0550 (3.4946)	Prec@1 60.0000 (44.1698)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [106/110]	Batch [0/32]	Loss 1.5147 (1.5147)	Prec@1 62.5000 (62.5000)
+Epoch [106/110]	Batch [10/32]	Loss 1.3983 (1.5323)	Prec@1 56.2500 (57.8125)
+Epoch [106/110]	Batch [20/32]	Loss 1.2007 (1.4577)	Prec@1 68.7500 (61.0119)
+Epoch [106/110]	Batch [30/32]	Loss 1.5121 (1.4694)	Prec@1 62.5000 (60.7359)
+Training Time 245.79365015
+test accuracy
+Epoch [106/110]	Loss 0.6574 (3.3057)	Prec@1 60.0000 (44.4950)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [107/110]	Batch [0/32]	Loss 1.6535 (1.6535)	Prec@1 57.8125 (57.8125)
+Epoch [107/110]	Batch [10/32]	Loss 1.5062 (1.4887)	Prec@1 64.0625 (60.5114)
+Epoch [107/110]	Batch [20/32]	Loss 1.6805 (1.5532)	Prec@1 56.2500 (59.3006)
+Epoch [107/110]	Batch [30/32]	Loss 1.3576 (1.5240)	Prec@1 67.1875 (59.8790)
+Training Time 253.193961143
+test accuracy
+Epoch [107/110]	Loss 0.7397 (4.3166)	Prec@1 80.0000 (44.0559)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [108/110]	Batch [0/32]	Loss 1.8038 (1.8038)	Prec@1 46.8750 (46.8750)
+Epoch [108/110]	Batch [10/32]	Loss 1.3966 (1.4936)	Prec@1 59.3750 (56.9602)
+Epoch [108/110]	Batch [20/32]	Loss 1.3622 (1.5252)	Prec@1 62.5000 (57.6637)
+Epoch [108/110]	Batch [30/32]	Loss 1.5198 (1.4850)	Prec@1 62.5000 (59.5262)
+Training Time 245.557702065
+test accuracy
+Epoch [108/110]	Loss 0.8596 (2.7937)	Prec@1 60.0000 (44.9992)	Prec_teacher@1 0.0000 (0.0000)
+Epoch [109/110]	Batch [0/32]	Loss 1.5151 (1.5151)	Prec@1 60.9375 (60.9375)
+Epoch [109/110]	Batch [10/32]	Loss 1.5702 (1.5020)	Prec@1 51.5625 (57.9545)
+Epoch [109/110]	Batch [20/32]	Loss 1.4831 (1.5007)	Prec@1 57.8125 (57.8125)
+Epoch [109/110]	Batch [30/32]	Loss 1.4686 (1.5041)	Prec@1 50.0000 (58.1653)
+Training Time 246.046205997
+test accuracy
+Epoch [109/110]	Loss 0.7130 (3.4609)	Prec@1 80.0000 (45.0480)	Prec_teacher@1 0.0000 (0.0000)
