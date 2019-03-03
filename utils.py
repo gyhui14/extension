@@ -94,62 +94,19 @@ def adjust_learning_rate_and_learning_taks(optimizer, epoch, args):
 
 # load model weights trained using scripts from https://github.com/felixgwu/img_classification_pk_pytorch OR
 # from torchvision models into our flattened resnets
-def load_weights_to_flatresnet(rnet, net, rnet_cifar10, rnet_cifar100, cifar10_model, cifar100_model, net_old_imagenet):
+def load_weights_to_flatresnet(rnet, net_old_imagenet):
     # load imagenet
-    #net_old = models.resnet50(pretrained=True)
-
-    store_data_cifar10 = []
-    for name, m in cifar10_model.named_modules():
-        if isinstance(m, nn.Conv2d)  and "adapters" not in name and "encoder" not in name: 
-            store_data_cifar10.append(m.weight.data)
-        
-    store_data_cifar100 = []
-    for name, m in cifar100_model.named_modules():
-        if isinstance(m, nn.Conv2d)  and "adapters" not in name and "encoder" not in name:
-            store_data_cifar100.append(m.weight.data)
-  
     store_data_imagenet = []
     for name, m in net_old_imagenet.named_modules():
-        if isinstance(m, nn.Conv2d)  and "adapters" not in name and "encoder" not in name:
+        if isinstance(m, nn.Conv2d)  and "adapters" not in name and "encoder" not in name: 
             store_data_imagenet.append(m.weight.data)
-
-
+        
     element = 0
     for name, m in rnet.named_modules():
         if isinstance(m, nn.Conv2d) and "adapters" not in name and "encoder" not in name:
             m.weight.data = torch.nn.Parameter( store_data_imagenet[element])
             element += 1  
 
-
-    element = 0
-    for name, m in net.named_modules():
-
-        if isinstance(m, nn.Conv2d) and "adapters" not in name and "encoder" not in name:
-            m.weight.data = torch.nn.Parameter( store_data_imagenet[element])
-            element += 1  
-
-    element = 0
-    for name, m in rnet_cifar10.named_modules():
-        if isinstance(m, nn.Conv2d) and "adapters" not in name and "encoder" not in name:
-            m.weight.data = torch.nn.Parameter( store_data_cifar10[element])
-            element += 1  
-
-
-    element = 0
-    for name, m in rnet_cifar100.named_modules():
-        if isinstance(m, nn.Conv2d) and "adapters" not in name and "encoder" not in name:
-            m.weight.data = torch.nn.Parameter( store_data_cifar100[element])
-            element += 1  
-
-
-    '''
-    element = 1
-    for name, m in net.named_modules():
-        if isinstance(m, nn.Conv2d) and 'imagenet' in name:
-            m.weight.data = torch.nn.Parameter(store_data[element])
-            element += 1
-    '''
-    '''
     store_data = []
     store_data_bias = []
     store_data_rm = []
@@ -169,59 +126,8 @@ def load_weights_to_flatresnet(rnet, net, rnet_cifar10, rnet_cifar100, cifar10_m
                 m.running_var = store_data_rv[element].clone()
                 m.running_mean = store_data_rm[element].clone()
                 element += 1
-    '''
-    '''
-    element = 1
-    for name, m in net.named_modules():
-        if isinstance(m, nn.BatchNorm2d) and "imagenet" in name:
-                m.weight.data = torch.nn.Parameter(store_data[element].clone())
-                m.bias.data = torch.nn.Parameter(store_data_bias[element].clone())
-                m.running_var = store_data_rv[element].clone()
-                m.running_mean = store_data_rm[element].clone()
-                element += 1
-    '''
-    '''
-    for dataset in datasets:
-
-        checkpoint = torch.load(pretrained_model[dataset])
-        net_old = checkpoint['net']
-
-        # load pretrained net 
-        store_data = []
-        for name, m in net_old.named_modules():
-            if isinstance(m, nn.Conv2d): 
-                store_data.append(m.weight.data)
-
-        element = 1
-        for name, m in net.named_modules():
-            if isinstance(m, nn.Conv2d) and  dataset in name:
-                m.weight.data = torch.nn.Parameter(store_data[element])
-                element += 1
-        
-        store_data = []
-        store_data_bias = []
-        store_data_rm = []
-        store_data_rv = []
-        for name, m in net_old.named_modules():
-            if isinstance(m, nn.BatchNorm2d):
-                store_data.append(m.weight.data)
-                store_data_bias.append(m.bias.data)
-                store_data_rm.append(m.running_mean)
-                store_data_rv.append(m.running_var)
-
-        element = 1
-        for name, m in net.named_modules():
-            if isinstance(m, nn.BatchNorm2d) and dataset in name:
-                    m.weight.data = torch.nn.Parameter(store_data[element].clone())
-                    m.bias.data = torch.nn.Parameter(store_data_bias[element].clone())
-                    m.running_var = store_data_rv[element].clone()
-                    m.running_mean = store_data_rm[element].clone()
-                    element += 1
-    '''
-
-    #net.fc.weight.data = torch.nn.Parameter(net_old_flower.module.fc.weight.data)
-    #net.fc.bias.data = torch.nn.Parameter(net_old_flower.module.fc.bias.data)
-    return rnet, net, rnet_cifar10, rnet_cifar100
+    
+    return rnet
 
 def load_from_pytorch_models(net_old, net, load_fc=False):
     # load pretrained net 
@@ -295,6 +201,9 @@ def get_model(num_classes, datasets):
 '''
 
 def get_model(num_classes):
-
     rnet = resnet50(False, num_classes)
+
+    net_old_imagenet = models.resnet50(pretrained=True)
+    rnet = load_weights_to_flatresnet(rnet, net_old_imagenet)
+
     return rnet

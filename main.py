@@ -23,6 +23,7 @@ import sgd
 import config_task
 import imdbfolder_coco as imdbfolder
 from piggy_back_loader import * 
+from sun_loader import *
 
 from gumbel_softmax import *
 from imagenet_loader import *
@@ -32,7 +33,7 @@ from models.resnet_block_format import *
 from dog_data.load import load_datasets
 
 parser = argparse.ArgumentParser(description='PyTorch Residual Adapters training')
-parser.add_argument('--nb_epochs', default=180, type=int, help='nb epochs')
+parser.add_argument('--nb_epochs', default=60, type=int, help='nb epochs')
 
 parser.add_argument('--wd3x3', default=1.0, type=float, nargs='+', help='weight decay for the 3x3')
 parser.add_argument('--wd1x1', default=1.0, type=float, nargs='+', help='weight decay for the 1x1')
@@ -40,20 +41,20 @@ parser.add_argument('--wd1x1', default=1.0, type=float, nargs='+', help='weight 
 parser.add_argument('--lr', default=0.01, type=float, help='initial learning rate')
 parser.add_argument('--lr_agent', default=1e-1, type=float, help='initial learning rate')
 
-parser.add_argument('--batch_size', default=64, type=int, help="batch size")
+parser.add_argument('--batch_size', default=32, type=int, help="batch size")
 
 parser.add_argument('--lambd', default=2, type=float, help='balance loss and fire rate')
 parser.add_argument('--factor', default='1.', type=float, help='Width factor of the network')
 
 parser.add_argument('--datadir', default='../data/decathlon-1.0/', help='folder containing data folder')
 parser.add_argument('--imdbdir', default='../data/decathlon-1.0/annotations/', help='annotation folder')
-parser.add_argument('--cv_dir', default='./trained_from_scratch/', help='checkpoint directory (models and logs are saved here)')
+parser.add_argument('--cv_dir', default='./fine_tuned_models/', help='checkpoint directory (models and logs are saved here)')
 #parser.add_argument('--cv_dir', default='./test/', help='checkpoint directory (models and logs are saved here)')
 
 parser.add_argument('--seed', default=0, type=int, help='seed')
-parser.add_argument('--step1', default=60, type=int, help='nb epochs before first lr decrease')
-parser.add_argument('--step2', default=100, type=int, help='nb epochs before second lr decrease')
-parser.add_argument('--step3', default=130, type=int, help='nb epochs before third lr decrease')
+parser.add_argument('--step1', default=15, type=int, help='nb epochs before first lr decrease')
+parser.add_argument('--step2', default=30, type=int, help='nb epochs before second lr decrease')
+parser.add_argument('--step3', default=45, type=int, help='nb epochs before third lr decrease')
 args = parser.parse_args()
 
 weight_decays = [
@@ -214,11 +215,16 @@ for i, dataset in enumerate(datasets.keys()):
                                              shuffle=False, num_workers=4)
     '''
 
+    '''
     dataset = "caltech_256"
     num_class = 256
     train_data, test_data, _ = load_datasets("caltech_256")
     train_loaders = torch.utils.data.DataLoader(train_data, batch_size=args.batch_size, shuffle=True)
     val_loaders = torch.utils.data.DataLoader(test_data, batch_size=args.batch_size, shuffle=True)
+    '''
+
+    dataset = "SUN397"
+    train_loaders, val_loaders, num_class  = get_train_valid_loader("./data/SUN397/", batch_size = args.batch_size, examples_per_label=10)
 
 
     pretrained_model_dir = args.cv_dir + dataset
