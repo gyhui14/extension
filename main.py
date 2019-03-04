@@ -244,12 +244,16 @@ val_loaders = torch.utils.data.DataLoader(test_data, batch_size=args.batch_size,
 l2_grid = [0.0, 0.1, 0.25, 0.5, 0.75]
 
 for l2 in l2_grid:
+    print ("L2 parameter is %f." % (l2))
 
     dataset = "SUN397"
     train_loaders, val_loaders, num_class  = get_train_valid_loader("./data/SUN397/", batch_size = args.batch_size, examples_per_label=100)
 
-
     pretrained_model_dir = args.cv_dir + dataset
+    if not os.path.isdir(pretrained_model_dir):
+        os.mkdir(pretrained_model_dir)
+
+    pretrained_model_dir = pretrained_model_dir + "/" + str(l2)
     if not os.path.isdir(pretrained_model_dir):
         os.mkdir(pretrained_model_dir)
 
