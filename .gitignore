@@ -6,3 +6,4 @@ dog_data/*
 test/*
 caltech_datasets/*
 *.npy
+*.tar

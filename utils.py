@@ -16,6 +16,9 @@ import itertools
 from itertools import cycle
 
 from models.resnet_block_format import *
+import models.resnet_combined_weights as cw
+from models.layers import *
+
 import models.agent_net as agent_net
 
 def MinibatchScheduler(tloaders, mode = 'cycle'):
@@ -32,10 +35,10 @@ def MinibatchScheduler(tloaders, mode = 'cycle'):
 
         	for i, data_pair in enumerate(ziplist):
             		yield i, data_pair
-
     	elif mode == 'min':
         	for i, data_pair in enumerate(zip(*tloaders)):
             		yield i, data_pair
+
 	elif mode == 'interleaving':
 		c = [iter(i) for i in tloaders]
 		i = 0
@@ -94,18 +97,30 @@ def adjust_learning_rate_and_learning_taks(optimizer, epoch, args):
 
 # load model weights trained using scripts from https://github.com/felixgwu/img_classification_pk_pytorch OR
 # from torchvision models into our flattened resnets
-def load_weights_to_flatresnet(rnet, net_old_imagenet):
+def load_weights_to_flatresnet(rnet, rnet_places365, net_old_imagenet, net_old_place365):
     # load imagenet
     store_data_imagenet = []
     for name, m in net_old_imagenet.named_modules():
-        if isinstance(m, nn.Conv2d)  and "adapters" not in name and "encoder" not in name: 
+        if isinstance(m, nn.Conv2d): 
             store_data_imagenet.append(m.weight.data)
-        
+    
+    # load place365
+    store_data_places365 = []
+    for name, m in net_old_place365.named_modules():
+        if isinstance(m, nn.Conv2d): 
+            store_data_places365.append(m.weight.data)
+
     element = 0
     for name, m in rnet.named_modules():
-        if isinstance(m, nn.Conv2d) and "adapters" not in name and "encoder" not in name:
+        if isinstance(m, nn.Conv2d):
             m.weight.data = torch.nn.Parameter( store_data_imagenet[element])
-            element += 1  
+            element += 1
+
+    element = 0
+    for name, m in rnet_places365.named_modules():
+        if isinstance(m, nn.Conv2d):
+            m.weight.data = torch.nn.Parameter( store_data_places365[element])
+            element += 1
 
     store_data = []
     store_data_bias = []
@@ -126,8 +141,8 @@ def load_weights_to_flatresnet(rnet, net_old_imagenet):
                 m.running_var = store_data_rv[element].clone()
                 m.running_mean = store_data_rm[element].clone()
                 element += 1
-    
-    return rnet
+
+    return rnet, rnet_places365
 
 def load_from_pytorch_models(net_old, net, load_fc=False):
     # load pretrained net 
@@ -207,3 +222,27 @@ def get_model(num_classes):
     rnet = load_weights_to_flatresnet(rnet, net_old_imagenet)
 
     return rnet
+
+def get_places365_model(num_classes):
+
+    rnet = resnet50(pretrained=False, num_classes = num_classes)
+    rnet_places365 = resnet50(pretrained=False, num_classes = num_classes)
+
+    # the architecture to use
+    arch = 'resnet50'
+    # load the pre-trained weights
+    model_file = '%s_places365.pth.tar' % arch
+    if not os.access(model_file, os.W_OK):
+        weight_url = 'http://places2.csail.mit.edu/models_places365/' + model_file
+        os.system('wget ' + weight_url)
+
+    net_old_place365 = models.__dict__[arch](num_classes=365)
+    checkpoint = torch.load(model_file, map_location=lambda storage, loc: storage)
+    state_dict = {str.replace(k,'module.',''): v for k,v in checkpoint['state_dict'].items()}
+    net_old_place365.load_state_dict(state_dict)
+    
+    net_old_imagenet = models.resnet50(pretrained=True)
+
+    rnet, rnet_places365 = load_weights_to_flatresnet(rnet, rnet_places365, net_old_imagenet, net_old_place365)
+
+    return rnet, net_old_place365

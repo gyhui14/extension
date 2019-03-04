@@ -32,29 +32,24 @@ from utils import *
 from models.resnet_block_format import *
 from dog_data.load import load_datasets
 
-parser = argparse.ArgumentParser(description='PyTorch Residual Adapters training')
-parser.add_argument('--nb_epochs', default=60, type=int, help='nb epochs')
+parser = argparse.ArgumentParser(description='PyTorch')
+parser.add_argument('--nb_epochs', default=120, type=int, help='nb epochs')
 
-parser.add_argument('--wd3x3', default=1.0, type=float, nargs='+', help='weight decay for the 3x3')
-parser.add_argument('--wd1x1', default=1.0, type=float, nargs='+', help='weight decay for the 1x1')
+parser.add_argument('--wd3x3', default=0.0, type=float, nargs='+', help='weight decay for the 3x3')
+parser.add_argument('--wd1x1', default=0.0, type=float, nargs='+', help='weight decay for the 1x1')
 
 parser.add_argument('--lr', default=0.01, type=float, help='initial learning rate')
 parser.add_argument('--lr_agent', default=1e-1, type=float, help='initial learning rate')
 
-parser.add_argument('--batch_size', default=32, type=int, help="batch size")
+parser.add_argument('--batch_size', default=64, type=int, help="batch size")
 
-parser.add_argument('--lambd', default=2, type=float, help='balance loss and fire rate')
-parser.add_argument('--factor', default='1.', type=float, help='Width factor of the network')
-
-parser.add_argument('--datadir', default='../data/decathlon-1.0/', help='folder containing data folder')
-parser.add_argument('--imdbdir', default='../data/decathlon-1.0/annotations/', help='annotation folder')
-parser.add_argument('--cv_dir', default='./fine_tuned_models/', help='checkpoint directory (models and logs are saved here)')
-#parser.add_argument('--cv_dir', default='./test/', help='checkpoint directory (models and logs are saved here)')
+#parser.add_argument('--cv_dir', default='./fine_tuned_models/', help='checkpoint directory (models and logs are saved here)')
+parser.add_argument('--cv_dir', default='./test/', help='checkpoint directory (models and logs are saved here)')
 
 parser.add_argument('--seed', default=0, type=int, help='seed')
-parser.add_argument('--step1', default=15, type=int, help='nb epochs before first lr decrease')
-parser.add_argument('--step2', default=30, type=int, help='nb epochs before second lr decrease')
-parser.add_argument('--step3', default=45, type=int, help='nb epochs before third lr decrease')
+parser.add_argument('--step1', default=30, type=int, help='nb epochs before first lr decrease')
+parser.add_argument('--step2', default=60, type=int, help='nb epochs before second lr decrease')
+parser.add_argument('--step3', default=90, type=int, help='nb epochs before third lr decrease')
 args = parser.parse_args()
 
 weight_decays = [
@@ -88,9 +83,10 @@ dataset_classes = collections.OrderedDict(dataset_classes)
 weight_decays = collections.OrderedDict(weight_decays)
 
 
-def train(epoch, train_loaders, net, net_optimizer):
+def train(epoch, train_loaders, net, rnet_places365, net_optimizer, l2):
     #Train the model
     net.train()
+    rnet_places365.eval()
 
     total_step = len(train_loaders)
     top1 = AverageMeter()
@@ -102,7 +98,6 @@ def train(epoch, train_loaders, net, net_optimizer):
         
         images, labels = Variable(images), Variable(labels)
         outputs = net.forward(images)
-
         _, predicted = torch.max(outputs.data, 1)
         correct = predicted.eq(labels.data).cpu().sum()
         top1.update(correct.item()*100 / (labels.size(0)+0.0), labels.size(0))	    
@@ -111,7 +106,30 @@ def train(epoch, train_loaders, net, net_optimizer):
         loss = criterion(outputs, labels)
         losses.update(loss.data[0], labels.size(0))
 
+
+        ###################################################################################
+        # Calculate L2 loss
+        rnet_places_copy = copy.deepcopy(rnet_places365)
+        store_data_places365 = []
+        for name, m in rnet_places365.named_modules():
+            if isinstance(m, nn.Conv2d): 
+                store_data_places365.append(m.weight.data)
+
+        reg_loss_places365 = None
+        element = 0
+        for name, m in net.named_modules():
+            if isinstance(m, nn.Conv2d): 
+                if reg_loss_places365 is None:
+                    reg_loss_places365 = torch.pow(m.weight.data - store_data_places365[element], 2).mean()
+                else:
+                    reg_loss_places365 += torch.pow(m.weight.data - store_data_places365[element], 2).mean()
+                element += 1
+        ###################################################################################
+
+        loss = l2 * reg_loss_places365 + loss * (1-l2)
+
         if i % 10 == 0:
+            
             print('Epoch [{}/{}]\t'
                   'Batch [{}/{}]\t'
                   'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
@@ -183,48 +201,52 @@ def test(epoch, val_loaders, net, best_acc, dataset):
 criterion = nn.CrossEntropyLoss().cuda()
 np.random.seed(args.seed)
 
-for i, dataset in enumerate(datasets.keys()):
+#for i, dataset in enumerate(datasets.keys()):
 
-    '''
-    print dataset 
-    if dataset in ['flowers', 'wikiart', 'skethes']:
-    	train_loaders = train_loader("../cubs_data/" + dataset +"/train/", 64)
-    	val_loaders = test_loader("../cubs_data/" + dataset + "/test/", 64)
-    else:
-    	train_loaders = train_loader_cropped("../cubs_data/" + dataset +"/train/", 64)
-    	val_loaders = test_loader_cropped("../cubs_data/" + dataset + "/test/", 64)
-    '''
+'''
+print dataset 
+if dataset in ['flowers', 'wikiart', 'skethes']:
+	train_loaders = train_loader("../cubs_data/" + dataset +"/train/", 64)
+	val_loaders = test_loader("../cubs_data/" + dataset + "/test/", 64)
+else:
+	train_loaders = train_loader_cropped("../cubs_data/" + dataset +"/train/", 64)
+	val_loaders = test_loader_cropped("../cubs_data/" + dataset + "/test/", 64)
+'''
 
-    '''
-    dataset = "cifar100"
-    transform = transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+'''
+dataset = "cifar100"
+transform = transforms.Compose([
+    transforms.Resize(256),
+    transforms.CenterCrop(224),
+    transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
-    trainset = torchvision.datasets.CIFAR100(root='./data', train=True,
-                                            download=True, transform=transform)
-    train_loaders = torch.utils.data.DataLoader(trainset, batch_size=64,
-                                              shuffle=True, num_workers=4)
+trainset = torchvision.datasets.CIFAR100(root='./data', train=True,
+                                        download=True, transform=transform)
+train_loaders = torch.utils.data.DataLoader(trainset, batch_size=64,
+                                          shuffle=True, num_workers=4)
 
-    testset = torchvision.datasets.CIFAR100(root='./data', train=False,
-                                           download=True, transform=transform)
+testset = torchvision.datasets.CIFAR100(root='./data', train=False,
+                                       download=True, transform=transform)
 
-    val_loaders = torch.utils.data.DataLoader(testset, batch_size=64,
-                                             shuffle=False, num_workers=4)
-    '''
+val_loaders = torch.utils.data.DataLoader(testset, batch_size=64,
+                                         shuffle=False, num_workers=4)
+'''
 
-    '''
-    dataset = "caltech_256"
-    num_class = 256
-    train_data, test_data, _ = load_datasets("caltech_256")
-    train_loaders = torch.utils.data.DataLoader(train_data, batch_size=args.batch_size, shuffle=True)
-    val_loaders = torch.utils.data.DataLoader(test_data, batch_size=args.batch_size, shuffle=True)
-    '''
+'''
+dataset = "caltech_256"
+num_class = 256
+train_data, test_data, _ = load_datasets("caltech_256")
+train_loaders = torch.utils.data.DataLoader(train_data, batch_size=args.batch_size, shuffle=True)
+val_loaders = torch.utils.data.DataLoader(test_data, batch_size=args.batch_size, shuffle=True)
+'''
+
+l2_grid = [0.0, 0.1, 0.25, 0.5, 0.75]
+
+for l2 in l2_grid:
 
     dataset = "SUN397"
-    train_loaders, val_loaders, num_class  = get_train_valid_loader("./data/SUN397/", batch_size = args.batch_size, examples_per_label=10)
+    train_loaders, val_loaders, num_class  = get_train_valid_loader("./data/SUN397/", batch_size = args.batch_size, examples_per_label=100)
 
 
     pretrained_model_dir = args.cv_dir + dataset
@@ -237,7 +259,8 @@ for i, dataset in enumerate(datasets.keys()):
 
     results = np.zeros((4, args.nb_epochs))
 
-    net = get_model(num_class)
+    #net = get_model(num_class)
+    net, rnet_places365 = get_places365_model(num_class)
 
     use_cuda = torch.cuda.is_available()
     if use_cuda:
@@ -246,19 +269,26 @@ for i, dataset in enumerate(datasets.keys()):
         net.cuda()   
         net = nn.DataParallel(net)
 
-    optimizer = sgd.SGD(filter(lambda p: p.requires_grad, net.parameters()), lr= 0.01,  momentum=0.9, weight_decay= 0.0)
+        rnet_places365.cuda()
+        rnet_places365 = nn.DataParallel(rnet_places365)
+
+    net_params = []
+    for name, param in net.named_parameters():
+        if param.requires_grad == True:
+            net_params.append(param)
+
+    optimizer = sgd.SGD(net_params, lr = args.lr,  momentum=0.9, weight_decay= 0.0)
 
     best_acc = 0.0  # best test accuracy
     start_epoch = 0
-
     for epoch in range(start_epoch, start_epoch+args.nb_epochs):
         adjust_learning_rate_and_learning_taks(optimizer, epoch, args)
 
         st_time = time.time()
-        train_acc, train_loss = train(epoch, train_loaders, net, optimizer)
-        print('Training Time {0}'.format(time.time()-st_time))        
-
+        train_acc, train_loss = train(epoch, train_loaders, net, rnet_places365, optimizer, l2)
         test_acc, test_loss, best_acc = test(epoch, val_loaders, net, best_acc, dataset)
+        
+        print('Training and testing time {0}'.format(time.time()-st_time))        
 
         #Record statistics
         results[0:2,epoch] = [train_loss, train_acc]
