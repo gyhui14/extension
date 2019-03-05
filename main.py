@@ -249,7 +249,7 @@ for l2 in l2_grid:
 
     dataset = "SUN397"
     train_loaders, val_loaders, num_class  = get_train_valid_loader(train_data_dir = "./data/Training_01/", test_data_dir = "./data/Testing_01/" \
-                                                                 ,batch_size = args.batch_size, examples_per_label=10)
+                                                                 ,batch_size = args.batch_size, examples_per_label=100)
 
     pretrained_model_dir = args.cv_dir + dataset
     if not os.path.isdir(pretrained_model_dir):
