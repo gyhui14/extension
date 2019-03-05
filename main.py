@@ -30,7 +30,6 @@ from imagenet_loader import *
 
 from utils import *
 from models.resnet_block_format import *
-from dog_data.load import load_datasets
 
 parser = argparse.ArgumentParser(description='PyTorch')
 parser.add_argument('--nb_epochs', default=120, type=int, help='nb epochs')
@@ -98,6 +97,7 @@ def train(epoch, train_loaders, net, rnet_places365, net_optimizer, l2):
         
         images, labels = Variable(images), Variable(labels)
         outputs = net.forward(images)
+
         _, predicted = torch.max(outputs.data, 1)
         correct = predicted.eq(labels.data).cpu().sum()
         top1.update(correct.item()*100 / (labels.size(0)+0.0), labels.size(0))	    
@@ -167,6 +167,7 @@ def test(epoch, val_loaders, net, best_acc, dataset):
             outputs = net.forward(images)
 
             _, predicted = torch.max(outputs.data, 1)
+
             correct = predicted.eq(labels.data).cpu().sum()
             top1.update(correct.item()*100 / (labels.size(0)+0.0), labels.size(0))
 
@@ -247,7 +248,8 @@ for l2 in l2_grid:
     print ("L2 parameter is %f." % (l2))
 
     dataset = "SUN397"
-    train_loaders, val_loaders, num_class  = get_train_valid_loader("./data/SUN397/", batch_size = args.batch_size, examples_per_label=100)
+    train_loaders, val_loaders, num_class  = get_train_valid_loader(train_data_dir = "./data/Training_01/", test_data_dir = "./data/Testing_01/" \
+                                                                 ,batch_size = args.batch_size, examples_per_label=10)
 
     pretrained_model_dir = args.cv_dir + dataset
     if not os.path.isdir(pretrained_model_dir):
