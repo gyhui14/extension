@@ -12,44 +12,6 @@ import copy
 sys.path.append('../')
 from gumbel_softmax import *
 
-class autoencoder(nn.Module):
-    def __init__(self, input_channel, output_channel):
-        super(autoencoder, self).__init__()
-           
-        self.conv1 = nn.Conv2d(input_channel, 16, 1, stride=1, padding=1)
-        #nn.MaxPool2d(2, stride=2),  # b, 16, 5, 5
-        self.conv2 =  nn.Conv2d(16, 8, 1, stride=1, padding=1)  # b, 8, 3, 3
-        #nn.MaxPool2d(2, stride=1)  # b, 8, 2, 2
-        self.relu = nn.ReLU(True)
-
-        self.conv3 = nn.ConvTranspose2d(8, 16, 1, stride=1)  # b, 16, 5, 5
-        self.conv4 = nn.ConvTranspose2d(16, 32, 1, stride=1, padding=1)  # b, 8, 15, 15
-        self.conv5 = nn.ConvTranspose2d(32, output_channel, 1, stride=1, padding=1)  # b, 1, 28, 28
-        self.tanh  = nn.Tanh()
-        
-    def forward(self, x):
-
-        x = self.conv1(x)
-        x = self.relu(x)
-        x = self.conv2(x)
-        x = self.relu(x)
-        x = self.conv3(x)
-        x = self.relu(x)
-        x = self.conv4(x)
-        x = self.relu(x)
-        x = self.conv5(x)
-        x = self.tanh(x)
-
-        return x
-
-class ScaleLayer(nn.Module):
-   def __init__(self, init_value=0.5):
-       super(ScaleLayer, self).__init__()
-       self.scale = nn.Parameter(torch.FloatTensor([init_value]))
-   def forward(self, x):
-       print self.scale
-       return self.scale * x 
-
 def conv3x3(in_planes, out_planes, stride=1):
     """3x3 convolution with padding"""
     return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
@@ -89,18 +51,14 @@ class Bottleneck(nn.Module):
         super(Bottleneck, self).__init__()
 
         self.conv1 = nn.Conv2d(inplanes, planes, kernel_size=1, bias=False)
-        #encoder.append(autoencoder(inplanes, inplanes))
 
         self.bn1 = nn.BatchNorm2d(planes)
 
         self.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=stride,
                                padding=1, bias=False)
-        #encoder.append(autoencoder(planes, planes))
 
         self.bn2 = nn.BatchNorm2d(planes)
         self.conv3 = nn.Conv2d(planes, planes * self.expansion, kernel_size=1, bias=False)
-
-        #encoder.append(autoencoder(planes, planes))
 
         self.bn3 = nn.BatchNorm2d(planes * self.expansion)
 
@@ -135,13 +93,9 @@ class ResNet(nn.Module):
         super(ResNet, self).__init__()
         self.layers = layers
 
-        #self.autoencoders = []
-
         self.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3,
                                bias=False)
         
-        #self.autoencoders.append(autoencoder(3, 3))
-
         self.bn1 = nn.BatchNorm2d(64)
         self.relu = nn.ReLU(inplace=True)
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
@@ -155,19 +109,13 @@ class ResNet(nn.Module):
             blocks = self._make_layer(block, filt_size, num_blocks, stride=stride)
             self.blocks.append(nn.ModuleList(blocks))
 
-        #self.autoencoders = nn.ModuleList(self.autoencoders)
-
         self.blocks = nn.ModuleList(self.blocks)
         self.avgpool = nn.AvgPool2d(7, stride=1)
 
-        '''
-        self.scale = []
-        for i in range(53):
-            self.scale.append(ScaleLayer())
-        self.scale = nn.ModuleList(self.scale)      
-        '''
-
         self.fc = nn.Linear(512 * block.expansion, num_classes)
+
+        self.fc_adapt = nn.Linear(512 * block.expansion, 512 * block.expansion)
+
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
                 nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
@@ -184,7 +132,6 @@ class ResNet(nn.Module):
                 nn.BatchNorm2d(planes * block.expansion),
             )
 
-
         layers = [block(self.inplanes, planes, stride, downsample)]
 
         self.inplanes = planes * block.expansion
@@ -192,7 +139,7 @@ class ResNet(nn.Module):
             layers.append(block(self.inplanes, planes))
         return layers
 
-    def forward(self, x):
+    def forward(self, x, skip = False):
         t = 0
         x = self.conv1(x)
         x = self.bn1(x)
@@ -206,8 +153,19 @@ class ResNet(nn.Module):
     
         x = self.avgpool(x)
         x = x.view(x.size(0), -1)
-        x = self.fc(x)
-        return x
+
+        if skip is True:
+            x_norm = torch.norm(x, p=2).detach()
+            x_normalized = x.div(x_norm)
+            return x_normalized
+        else:
+            x_output = self.fc(x)
+            x_adapt = self.fc_adapt(x)
+
+            x_adapt_norm = torch.norm(x_adapt, p=2).detach()
+            x_adapt_normalized = x_adapt.div(x_adapt_norm)
+
+            return x_output, x_adapt_normalized
 
 def resnet18(num_class = 10):
     """Constructs a ResNet-18 model.

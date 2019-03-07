@@ -1,0 +1,1 @@
+{"lr_agent": 0.1, "batch_size": 64, "step3": 90, "seed": 0, "lr": 0.01, "wd3x3": 0.0, "step1": 15, "cv_dir": "./classification_layer/", "nb_epochs": 40, "wd1x1": 0.0, "step2": 30}
