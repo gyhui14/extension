@@ -5,6 +5,7 @@ import torch.nn as nn
 import torchvision.transforms as transforms
 import torchvision.datasets as torchdata
 import torchvision.models as models
+from torch.autograd import Variable
 
 import numpy as np
 import shutil
@@ -16,42 +17,102 @@ import itertools
 from itertools import cycle
 
 from models.resnet_block_format import *
-import models.resnet_combined_weights as cw
 from models.layers import *
 
 import models.agent_net as agent_net
 
-
 from numpy import linalg as LA
+'''
+def svd_reduction(tensor: torch.Tensor, accept_rate=0.99):
+    left, diag, right = torch.svd(tensor)
+    full = diag.abs().sum()
+    ratio = diag.abs().cumsum(dim=0) / full
+    num = torch.where(ratio < accept_rate,
+                      torch.ones(1).to(ratio.device),
+                      torch.zeros(1).to(ratio.device)
+                      ).sum()
 
-def MinibatchScheduler(tloaders, mode = 'cycle'):
-    if len(tloaders) == 1:
-    	for i, data_pair in enumerate(tloaders[0]):
-             yield i, [data_pair]
-    else:
-    	if mode == 'cycle':
-        	ziplist = zip(tloaders[0], cycle(tloaders[1]))
-        	for i in range(2, len(tloaders)):
-            		flatlist = zip(*ziplist)
-            		flatlist.append(cycle(tloaders[i]))
-            		ziplist = zip(*flatlist)
+    return tensor @ right[:, :int(num)]
+'''
 
-        	for i, data_pair in enumerate(ziplist):
-            		yield i, data_pair
-    	elif mode == 'min':
-        	for i, data_pair in enumerate(zip(*tloaders)):
-            		yield i, data_pair
+class cca_loss():
+    def __init__(self, outdim_size=1, use_all_singular_values=True, device=torch.device('cuda')):
+        self.outdim_size = outdim_size
+        self.use_all_singular_values = use_all_singular_values
+        self.device = device
 
-	elif mode == 'interleaving':
-		c = [iter(i) for i in tloaders]
-		i = 0
-		while True:
-			for task in c:
-				cnt = 5
-				while cnt > 0:
-					yield i, [task.next()]
-					cnt = cnt - 1	
-					i = i + 1
+    def loss(self, H1, H2):
+
+        r1 = 1.0
+        r2 = 1.0
+        eps = 1e-4
+
+        H1, H2 = H1.t(), H2.t() # neuron * batch
+        o1 = o2 = H1.size(0)  # neuron
+
+        m = H1.size(1) # batch size
+
+        H1bar = H1 - H1.mean(dim=1, keepdim=True)
+        H2bar = H2 - H2.mean(dim=1, keepdim=True)
+
+        SigmaHat12 = (1.0 / (m - 1)) * torch.matmul(H1bar, H2bar.t()) 
+        SigmaHat11 = (1.0 / (m - 1)) * torch.matmul(H1bar, H1bar.t()) 
+        SigmaHat22 = (1.0 / (m - 1)) * torch.matmul(H2bar, H2bar.t()) 
+
+        # rescale
+        xmax = torch.max(torch.abs(SigmaHat11)).detach()
+        ymax = torch.max(torch.abs(SigmaHat22)).detach()
+        SigmaHat11 /= xmax
+        SigmaHat22 /= ymax
+        SigmaHat12 /= torch.sqrt(xmax * ymax)
+    
+        # remove small magnitude
+        x_diag = torch.abs(torch.diagonal(SigmaHat11)).detach()
+        y_diag = torch.abs(torch.diagonal(SigmaHat22)).detach()
+        x_idxs = (x_diag >= eps).detach()
+        y_idxs = (y_diag >= eps).detach()
+
+        SigmaHat11 = SigmaHat11[x_idxs][:, x_idxs]
+        SigmaHat22 = SigmaHat22[y_idxs][:, y_idxs]
+        SigmaHat12 = SigmaHat12[x_idxs][:, y_idxs]
+        o1 = SigmaHat11.size(0)  # neuron
+        o2 = SigmaHat22.size(0)  # neuron
+    
+        # add eps to diagonal
+        SigmaHat11 = SigmaHat11 + r1 * torch.eye(o1, device=self.device).detach()
+        SigmaHat22 = SigmaHat22 + r2 * torch.eye(o2, device=self.device).detach()
+
+        inv_SigmaHat11 = torch.pinverse(SigmaHat11)
+        inv_SigmaHat22 = torch.pinverse(SigmaHat22)
+
+        # Calculating the root inverse of covariance matrices by using eigen decomposition
+        [D1, V1] = torch.symeig(inv_SigmaHat11, eigenvectors=True)
+        [D2, V2] = torch.symeig(inv_SigmaHat22, eigenvectors=True)
+
+        SigmaHat11RootInv = torch.matmul(
+            torch.matmul(V1, torch.diag( torch.sqrt(D1))), V1.t())
+        
+        SigmaHat22RootInv = torch.matmul(
+            torch.matmul(V2, torch.diag( torch.sqrt(D2))), V2.t())
+
+
+        Tval = torch.matmul(torch.matmul(SigmaHat11RootInv,
+                                         SigmaHat12), SigmaHat22RootInv)
+        
+        u, s, v = Tval.svd()
+        '''
+        if self.use_all_singular_values:
+            # all singular values are used to calculate the correlation
+            tmp = torch.trace(torch.matmul(Tval.t(), Tval))
+            corr = torch.sqrt(tmp + eps)
+        else:
+            U, V = torch.symeig(torch.matmul(
+                Tval.t(), Tval), eigenvectors=True)
+            U = U.topk(self.outdim_size)[0]
+            corr = torch.sum(torch.sqrt(U))
+        '''
+        return -torch.mean(torch.abs(s))
+        #return -corr
 
 class AverageMeter(object):
     """Computes and stores the average and current value"""
@@ -115,13 +176,13 @@ def load_weights_to_flatresnet(rnet, rnet_imagenet, net_old_imagenet, net_old_pl
 
     element = 0
     for name, m in rnet.named_modules():
-        if isinstance(m, nn.Conv2d):
+        if isinstance(m, nn.Conv2d) and "dim" not in name:
             m.weight.data = torch.nn.Parameter( store_data_places365[element])
             element += 1
 
     element = 0
     for name, m in rnet_imagenet.named_modules():
-        if isinstance(m, nn.Conv2d):
+        if isinstance(m, nn.Conv2d) and "dim" not in name:
             m.weight.data = torch.nn.Parameter( store_data_imagenet[element])
             element += 1
 

@@ -21,7 +21,7 @@ sys.path.append('../')
 
 import sgd
 import config_task
-import imdbfolder_coco as imdbfolder
+#import imdbfolder_coco as imdbfolder
 from piggy_back_loader import * 
 from sun_loader import *
 
@@ -38,8 +38,9 @@ parser.add_argument('--wd3x3', default=0.0, type=float, nargs='+', help='weight 
 parser.add_argument('--wd1x1', default=0.0, type=float, nargs='+', help='weight decay for the 1x1')
 
 parser.add_argument('--lr', default=0.01, type=float, help='initial learning rate')
-parser.add_argument('--l2', default=0.0, type=float, help='l2 regularization')
 
+parser.add_argument('--l2', default=0.1, type=float, help='l2 regularization')
+parser.add_argument('--examples_per_label', default=20, type=float, help='examples per label')
 parser.add_argument('--batch_size', default=64, type=int, help="batch size")
 
 #parser.add_argument('--cv_dir', default='./fine_tuned_models/', help='checkpoint directory (models and logs are saved here)')
@@ -81,11 +82,10 @@ datasets = collections.OrderedDict(datasets)
 dataset_classes = collections.OrderedDict(dataset_classes)
 weight_decays = collections.OrderedDict(weight_decays)
 
-
-def train(epoch, train_loaders, net, rnet_imagenet, net_optimizer, l2):
+def train(epoch, train_loaders, net, rnet_imagenet, net_optimizer, adapt_optimizer, l2):
     #Train the model
     net.train()
-    rnet_imagenet.train()
+    rnet_imagenet.eval()
 
     total_step = len(train_loaders)
     top1 = AverageMeter()
@@ -95,21 +95,32 @@ def train(epoch, train_loaders, net, rnet_imagenet, net_optimizer, l2):
         if use_cuda:
             images, labels = images.cuda(async=True), labels.cuda(async=True)
         
+        if labels.shape[0] != args.batch_size:
+            continue   
+
         images, labels = Variable(images), Variable(labels)
 
-        output_teacher = rnet_imagenet.forward(images, skip = True)
+        output_teachers = rnet_imagenet.forward(images, skip = True)
+        
+        outputs, predicted_teachers = net.forward(images)
 
-        outputs, predicted_teacher = net.forward(images)
- 
         _, predicted = torch.max(outputs.data, 1)
         correct = predicted.eq(labels.data).cpu().sum()
         top1.update(correct.item()*100 / (labels.size(0)+0.0), labels.size(0))      
 
         # Loss
         loss = criterion(outputs, labels)
-        losses.update(loss.data[0], labels.size(0))
+        losses.update(loss.item(), labels.size(0))
 
-        reg_loss_imagenet = l2_loss(predicted_teacher, output_teacher)
+        cca_loss_imagenet = None
+        #reg_loss_imagenet = l2_loss(predicted_teacher, output_teacher)
+        for middle1, middle2 in zip(predicted_teachers, output_teachers):
+        
+            if cca_loss_imagenet is None:
+                cca_loss_imagenet = cca_loss.loss(middle1, middle2)
+            else:
+                cca_loss_imagenet += cca_loss.loss(middle1, middle2)
+        #cca_loss_imagenet = cca_loss.loss(predicted_teacher, output_teacher)
 
         '''
         ###################################################################################
@@ -129,10 +140,10 @@ def train(epoch, train_loaders, net, rnet_imagenet, net_optimizer, l2):
                 element += 1
         ###################################################################################
         '''
-        loss = l2 * reg_loss_imagenet + loss 
+        loss = l2 * cca_loss_imagenet + loss 
 
         if i % 10 == 0:
-            
+            print cca_loss_imagenet
             print('Epoch [{}/{}]\t'
                   'Batch [{}/{}]\t'
                   'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
@@ -143,10 +154,12 @@ def train(epoch, train_loaders, net, rnet_imagenet, net_optimizer, l2):
         #---------------------------------------------------------------------#
         # Backward and optimize            
         net_optimizer.zero_grad()
+        adapt_optimizer.zero_grad()
 
-        loss.backward()  
+        loss.backward(retain_graph=True)  
 
         net_optimizer.step()
+        adapt_optimizer.step()
 
         del loss
         
@@ -161,15 +174,15 @@ def test(epoch, val_loaders, net, best_acc, dataset):
 
     # Test the model
     with torch.no_grad():
-
         for i, (images, labels) in enumerate(val_loaders):
 
             if use_cuda:
                 images, labels = images.cuda(async=True), labels.cuda(async=True)          
 
             images, labels = Variable(images), Variable(labels)
+            
             outputs, _ = net.forward(images)
-
+    
             _, predicted = torch.max(outputs.data, 1)
 
             correct = predicted.eq(labels.data).cpu().sum()
@@ -177,7 +190,7 @@ def test(epoch, val_loaders, net, best_acc, dataset):
 
             #Loss
             loss = criterion(outputs, labels)
-            losses.update(loss.data[0], labels.size(0))
+            losses.update(loss.item(), labels.size(0))
         
         print "test accuracy"
         print('Epoch [{}/{}]\t'
@@ -205,6 +218,7 @@ def test(epoch, val_loaders, net, best_acc, dataset):
 # Prepare data loaders
 criterion = nn.CrossEntropyLoss().cuda()
 l2_loss = nn.MSELoss().cuda()
+cca_loss =  cca_loss(outdim_size=1, use_all_singular_values=True, device=torch.device('cuda'))
 
 np.random.seed(args.seed)
 
@@ -250,7 +264,7 @@ val_loaders = torch.utils.data.DataLoader(test_data, batch_size=args.batch_size,
 
 dataset = "ImageNet_SUN397"
 train_loaders, val_loaders, num_class  = get_train_valid_loader(train_data_dir = "./data/Training_01/", test_data_dir = "./data/Testing_01/" \
-                                                             , batch_size = args.batch_size, examples_per_label=50)
+                                                             , batch_size = args.batch_size, examples_per_label = args.examples_per_label)
 
 pretrained_model_dir = args.cv_dir + dataset
 if not os.path.isdir(pretrained_model_dir):
@@ -264,7 +278,6 @@ f = pretrained_model_dir + "/params.json"
 with open(f, 'wb') as fh:
     json.dump(vars(args), fh)
 
-
 net, rnet_imagenet = get_places365_model(num_class)
 
 use_cuda = torch.cuda.is_available()
@@ -277,9 +290,19 @@ if use_cuda:
     rnet_imagenet.cuda()
     rnet_imagenet = nn.DataParallel(rnet_imagenet)
 
+
 # fix the imagenet pre-trained model
-for name, m in rnet_imagenet.named_modules():
-    m.requires_grad = False
+for name, param in rnet_imagenet.named_parameters():
+    #if isinstance(m, nn.Conv2d):
+    if "dim_reduction" not in name:
+        param.requires_grad = False
+
+adapt_net_params = []
+for name, param in rnet_imagenet.named_parameters():
+    if param.requires_grad == True:
+        adapt_net_params.append(param)
+
+adapt_optimizer = sgd.SGD(adapt_net_params, lr = args.lr,  momentum=0.9, weight_decay= 0.0)
 
 net_params = []
 for name, param in net.named_parameters():
@@ -293,9 +316,10 @@ best_acc = 0.0  # best test accuracy
 start_epoch = 0
 for epoch in range(start_epoch, start_epoch+args.nb_epochs):
     adjust_learning_rate_and_learning_taks(optimizer, epoch, args)
+    adjust_learning_rate_and_learning_taks(adapt_optimizer, epoch, args)
 
     st_time = time.time()
-    train_acc, train_loss = train(epoch, train_loaders, net, rnet_imagenet, optimizer, args.l2)
+    train_acc, train_loss = train(epoch, train_loaders, net, rnet_imagenet, optimizer, adapt_optimizer ,args.l2)
     test_acc, test_loss, best_acc = test(epoch, val_loaders, net, best_acc, dataset)
     
     print('Training and testing time {0}'.format(time.time()-st_time))        

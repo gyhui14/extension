@@ -12,6 +12,30 @@ import copy
 sys.path.append('../')
 from gumbel_softmax import *
 
+
+class MlpNet(nn.Module):
+    def __init__(self, layer_sizes, input_size = 2048):
+        super(MlpNet, self).__init__()
+        layers = []
+        layer_sizes = [input_size] + layer_sizes
+
+        for l_id in range(len(layer_sizes) - 1):
+            if l_id == len(layer_sizes) - 2:
+                layers.append(
+                    nn.Linear(layer_sizes[l_id], layer_sizes[l_id + 1]),
+                )
+            else:
+                layers.append(nn.Sequential(
+                    nn.Linear(layer_sizes[l_id], layer_sizes[l_id + 1]),
+                    nn.ReLU(),
+                ))
+        self.layers = nn.ModuleList(layers)
+
+    def forward(self, x):
+        for layer in self.layers:
+            x = layer(x)
+        return x
+
 def conv3x3(in_planes, out_planes, stride=1):
     """3x3 convolution with padding"""
     return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
@@ -114,7 +138,37 @@ class ResNet(nn.Module):
 
         self.fc = nn.Linear(512 * block.expansion, num_classes)
 
-        self.fc_adapt = nn.Linear(512 * block.expansion, 512 * block.expansion)
+        ################################################################
+        self.adapt_avgpool = nn.MaxPool2d(5, stride=2)
+
+        self.dim_reduction = []
+        self.dim_reduction.append(nn.Conv2d(64, 32, kernel_size=1, bias=False))
+        self.dim_reduction.append(nn.Conv2d(256, 32, kernel_size=1, bias=False))
+        self.dim_reduction.append(nn.Conv2d(256, 32, kernel_size=1, bias=False))
+        self.dim_reduction.append(nn.Conv2d(256, 32, kernel_size=1, bias=False))
+        self.dim_reduction.append(nn.Conv2d(512, 32, kernel_size=1, bias=False))
+        self.dim_reduction.append(nn.Conv2d(512, 32, kernel_size=1, bias=False))
+        self.dim_reduction.append(nn.Conv2d(512, 32, kernel_size=1, bias=False))
+        self.dim_reduction.append(nn.Conv2d(512, 32, kernel_size=1, bias=False))
+        self.dim_reduction.append(nn.Conv2d(1024, 32, kernel_size=1, bias=False))
+        self.dim_reduction.append(nn.Conv2d(1024, 32, kernel_size=1, bias=False))
+        self.dim_reduction.append(nn.Conv2d(1024, 32, kernel_size=1, bias=False))
+        self.dim_reduction.append(nn.Conv2d(1024, 32, kernel_size=1, bias=False))
+        self.dim_reduction.append(nn.Conv2d(1024, 32, kernel_size=1, bias=False))
+        self.dim_reduction.append(nn.Conv2d(1024, 32, kernel_size=1, bias=False))
+        self.dim_reduction.append(nn.Conv2d(2048, 32, kernel_size=1, bias=False))
+        self.dim_reduction.append(nn.Conv2d(2048, 32, kernel_size=1, bias=False))
+        self.dim_reduction = nn.ModuleList(self.dim_r)
+
+
+        #self.fc_adapt_students = nn.Linear(512 * block.expansion, 32)
+        #self.fc_adapt_teachers = nn.Linear(512 * block.expansion, 32)
+
+        #self.fc_adapt_student = nn.Linear(512 * block.expansion, 32)
+        #self.fc_adapt_teacher = nn.Linear(512 * block.expansion, 32)
+        #self.fc_adapt_student = MlpNet([512, 64], 512 * block.expansion)
+        #self.fc_adapt_teacher = MlpNet([512, 64], 512 * block.expansion)
+        ################################################################
 
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
@@ -133,39 +187,58 @@ class ResNet(nn.Module):
             )
 
         layers = [block(self.inplanes, planes, stride, downsample)]
-
         self.inplanes = planes * block.expansion
         for i in range(1, blocks):
             layers.append(block(self.inplanes, planes))
         return layers
 
-    def forward(self, x, skip = False):
+    def forward(self, x, output_teacher=None, skip = False):
         t = 0
+        middle_outputs = []
+
+
         x = self.conv1(x)
         x = self.bn1(x)
         x = self.relu(x)
         x = self.maxpool(x)
-        
+        '''
+        if skip is True:
+            print self.dim_r[0].weight.data
+        '''
         for segment, num_blocks in enumerate(self.layers):
                 for b in range(num_blocks):
+                    x_tmp = self.adapt_avgpool(x)
+                    x_tmp = self.dim_reduction[t](x_tmp)
+                    t += 1
+                    num_datapoints, c, h, w = x_tmp.size()
+                    x_tmp = x_tmp.reshape(num_datapoints*w*h, c)
+                    middle_outputs.append(x_tmp)
+
                     output, residual = self.blocks[segment][b](x)
                     x = F.relu(residual + output)
-    
+
         x = self.avgpool(x)
         x = x.view(x.size(0), -1)
 
         if skip is True:
+            '''
             x_norm = torch.norm(x, p=2).detach()
             x_normalized = x.div(x_norm)
-            return x_normalized
+            '''
+            #x = self.fc_adapt_teacher(x)
+            return middle_outputs
+            
         else:
             x_output = self.fc(x)
-            x_adapt = self.fc_adapt(x)
-
+            #x_adapt = self.fc_adapt_student(x)
+            
+            '''
             x_adapt_norm = torch.norm(x_adapt, p=2).detach()
             x_adapt_normalized = x_adapt.div(x_adapt_norm)
-
-            return x_output, x_adapt_normalized
+            '''
+            
+            return x_output, middle_outputs
+        
 
 def resnet18(num_class = 10):
     """Constructs a ResNet-18 model.
