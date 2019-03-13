@@ -158,7 +158,7 @@ class ResNet(nn.Module):
         self.dim_reduction.append(nn.Conv2d(1024, 32, kernel_size=1, bias=False))
         self.dim_reduction.append(nn.Conv2d(2048, 32, kernel_size=1, bias=False))
         self.dim_reduction.append(nn.Conv2d(2048, 32, kernel_size=1, bias=False))
-        self.dim_reduction = nn.ModuleList(self.dim_r)
+        self.dim_reduction = nn.ModuleList(self.dim_reduction)
 
 
         #self.fc_adapt_students = nn.Linear(512 * block.expansion, 32)
@@ -236,7 +236,6 @@ class ResNet(nn.Module):
             x_adapt_norm = torch.norm(x_adapt, p=2).detach()
             x_adapt_normalized = x_adapt.div(x_adapt_norm)
             '''
-            
             return x_output, middle_outputs
         
 
